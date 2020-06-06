@@ -34,32 +34,17 @@ var TYPES = [
   'bungalo',
 ];
 
-var MIN_INDEX_TYPES = 0;
-var MAX_INDEX_TYPES = TYPES.length - 1;
-
 var MIN_ROOMS = 1;
 var MAX_ROOMS = 7;
 
 var MIN_GUESTS = 1;
 var MAX_GUESTS = 15;
 
-var CHECKINS = [
+var CHECKINOUTS = [
   '12:00',
   '13:00',
   '14:00',
 ];
-
-var MIN_INDEX_CHECKINS = 0;
-var MAX_INDEX_CHECKINS = CHECKINS.length - 1;
-
-var CHECKOUTS = [
-  '12:00',
-  '13:00',
-  '14:00',
-];
-
-var MIN_INDEX_CHECKOUTS = 0;
-var MAX_INDEX_CHECKOUTS = CHECKOUTS.length - 1;
 
 var FEATURES = [
   'wifi',
@@ -70,14 +55,11 @@ var FEATURES = [
   'conditioner',
 ];
 
-var MIN_INDEX_FEATURES = 0;
-var MAX_INDEX_FEATURES = FEATURES.length - 1;
-
 var MIN_X = 0;
 var MAX_X = 1200;
 
 var MIN_Y = 130;
-var MAX_Y = 160;
+var MAX_Y = 630;
 
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
@@ -143,49 +125,21 @@ var PHOTOS = [
 
 ];
 
-var mapPins = document.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#pin').content;
-var fragment = document.createDocumentFragment();
-
 var getRandomBetween = function (min, max) {
-  var rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
+  var random = min + Math.random() * (max + 1 - min);
+  return Math.floor(random);
 };
 
-var getAvatar = function (index) {
+var genAvatar = function (index) {
   return 'img/avatars/user0' + ++index + '.png';
 };
 
-var getTitle = function (titles, index) {
-  return titles[index];
+var genValueOfKeyFromData = function (data, index) {
+  return data[index];
 };
 
-var getAddress = function (addresses, index) {
-  return addresses[index];
-};
-
-var getPrice = function (min, max) {
-  return getRandomBetween(min, max);
-};
-
-var getType = function (types, min, max) {
-  return types[getRandomBetween(min, max)];
-};
-
-var getRooms = function (min, max) {
-  return getRandomBetween(min, max);
-};
-
-var getGuests = function (min, max) {
-  return getRandomBetween(min, max);
-};
-
-var getCheckIn = function (checkins, min, max) {
-  return checkins[getRandomBetween(min, max)];
-};
-
-var getCheckOut = function (checkouts, min, max) {
-  return checkouts[getRandomBetween(min, max)];
+var genRandomValueOfKeyFromData = function (data, min, max) {
+  return data[getRandomBetween(min, max)];
 };
 
 var getFeatures = function (min, max) {
@@ -200,57 +154,41 @@ var getFeatures = function (min, max) {
   return features;
 };
 
-var getLocationX = function (min, max) {
-  return getRandomBetween(min, max);
-};
-
-var getLocationY = function (min, max) {
-  return getRandomBetween(min, max);
-};
-
-var getDescription = function (descriptions, index) {
-  return descriptions[index];
-};
-
-var getPhotos = function (collection, index) {
-  return collection[index];
-};
-
-var getAd = function (avatar, title, titles, address, addresses, price, minPrice, maxPrice, type, types, minIndexTypes, maxIndexTypes, rooms, minRooms, maxRooms, guests, minGuests, maxGuests, checkin, checkins, minCheckIn, maxCheckIn, checkout, checkouts, minCheckOut, maxCheckOut, features, minFeatures, maxFeatures, x, minX, maxX, y, minY, maxY, description, descriptions, photos, collection, index) {
+var getAd = function (index) {
   return {
     author: {
-      avatar: avatar(index),
+      avatar: genAvatar(index),
     },
     offer: {
-      title: title(titles, index),
-      address: address(addresses, index),
-      price: price(minPrice, maxPrice),
-      type: type(types, minIndexTypes, maxIndexTypes),
-      rooms: rooms(minRooms, maxRooms),
-      guests: guests(minGuests, maxGuests),
-      checkin: checkin(checkins, minCheckIn, maxCheckIn),
-      checkout: checkout(checkouts, minCheckOut, maxCheckOut),
-      features: features(minFeatures, maxFeatures),
-      description: description(descriptions, index),
-      photos: photos(collection, index),
+      title: genValueOfKeyFromData(TITLES, index),
+      address: genValueOfKeyFromData(ADDRESSES, index),
+      price: getRandomBetween(MIN_PRICE, MAX_PRICE),
+      type: genRandomValueOfKeyFromData(TYPES, 0, TYPES.length - 1),
+      rooms: getRandomBetween(MIN_ROOMS, MAX_ROOMS),
+      guests: getRandomBetween(MIN_GUESTS, MAX_GUESTS),
+      checkin: genRandomValueOfKeyFromData(CHECKINOUTS, 0, CHECKINOUTS.length - 1),
+      checkout: genRandomValueOfKeyFromData(CHECKINOUTS, 0, CHECKINOUTS.length - 1),
+      features: getFeatures(0, FEATURES.length - 1),
+      description: genValueOfKeyFromData(DESCRIPTIONS, index),
+      photos: genValueOfKeyFromData(PHOTOS, index),
     },
     location: {
-      x: x(minX, maxX),
-      y: y(minY, maxY),
+      x: getRandomBetween(MIN_X, MAX_X),
+      y: getRandomBetween(MIN_Y, MAX_Y),
     },
   };
 };
 
-var getAds = function (adsLength, ad, avatar, title, titles, address, addresses, price, min, max, type, types, minIndexTypes, maxIndexTypes, rooms, minRooms, maxRooms, guests, minGuests, maxGuests, checkin, checkins, minCheckIn, maxCheckIn, checkout, checkouts, minCheckOut, maxCheckOut, features, minFeatures, maxFeatures, x, minX, maxX, y, minY, maxY, description, descriptions, photos, collection) {
+var getAds = function (adsLength, ad) {
   var ads = [];
   for (var i = 0; i < adsLength; i++) {
-    ads.push(ad(avatar, title, titles, address, addresses, price, min, max, type, types, minIndexTypes, maxIndexTypes, rooms, minRooms, maxRooms, guests, minGuests, maxGuests, checkin, checkins, minCheckIn, maxCheckIn, checkout, checkouts, minCheckOut, maxCheckOut, features, minFeatures, maxFeatures, x, minX, maxX, y, minY, maxY, description, descriptions, photos, collection, i));
+    ads.push(ad(i));
   }
 
   return ads;
 };
 
-var ads = getAds(MAX_ADS, getAd, getAvatar, getTitle, TITLES, getAddress, ADDRESSES, getPrice, MIN_PRICE, MAX_PRICE, getType, TYPES, MIN_INDEX_TYPES, MAX_INDEX_TYPES, getRooms, MIN_ROOMS, MAX_ROOMS, getGuests, MIN_GUESTS, MAX_GUESTS, getCheckIn, CHECKINS, MIN_INDEX_CHECKINS, MAX_INDEX_CHECKINS, getCheckOut, CHECKOUTS, MIN_INDEX_CHECKOUTS, MAX_INDEX_CHECKOUTS, getFeatures, MIN_INDEX_FEATURES, MAX_INDEX_FEATURES, getLocationX, MIN_X, MAX_X, getLocationY, MIN_Y, MAX_Y, getDescription, DESCRIPTIONS, getPhotos, PHOTOS);
+var ads = getAds(MAX_ADS, getAd);
 
 var renderAd = function (ad) {
   var pin = pinTemplate.cloneNode(true);
@@ -261,6 +199,10 @@ var renderAd = function (ad) {
 
   return pin;
 };
+
+var mapPins = document.querySelector('.map__pins');
+var pinTemplate = document.querySelector('#pin').content;
+var fragment = document.createDocumentFragment();
 
 ads.forEach(function (ad) {
   fragment.append(renderAd(ad));
