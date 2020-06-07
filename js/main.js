@@ -1,9 +1,11 @@
 'use strict';
 
-var MAX_ADS = 8;
+var NUMBER_ADS = 8;
 
-var MIN_PRICE = 1;
-var MAX_PRICE = 100000;
+var Price = {
+  MIN: 1000,
+  MAX: 10000,
+};
 
 var TITLES = [
   'Уютное гнездышко для молодоженов',
@@ -24,45 +26,56 @@ var ADDRESSES = [
   '102-0094 Tōkyō-to, Chiyoda-ku, Kioichō, 3',
   '102-0081 Tōkyō-to, Chiyoda-ku, Yonbanchō, 5−6',
   'Chiyoda-ku, Tōkyō-to 102-0082',
-  'Тихая квартирка недалеко от метро',
+  '102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 17−4',
 ];
 
-var TYPES = [
-  'palace',
-  'flat',
-  'house',
-  'bungalo',
-];
+var TYPES = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalo': 'Бунгало',
+};
 
-var MIN_ROOMS = 1;
-var MAX_ROOMS = 7;
+var Rooms = {
+  MIN: 1,
+  MAX: 7,
+};
 
-var MIN_GUESTS = 1;
-var MAX_GUESTS = 15;
+var Guests = {
+  MIN: 1,
+  MAX: 15,
+};
 
-var CHECKINOUTS = [
+
+var CHECKIN_OUTS = [
   '12:00',
   '13:00',
   '14:00',
 ];
 
-var FEATURES = [
-  'wifi',
-  'dishwasher',
-  'parking',
-  'washer',
-  'elevator',
-  'conditioner',
-];
+var FEATURES = {
+  'wifi': 'wifi',
+  'dishwasher': 'dishwasher',
+  'parking': 'parking',
+  'washer': 'washer',
+  'elevator': 'elevator',
+  'conditioner': 'conditioner',
+};
 
-var MIN_X = 0;
-var MAX_X = 1200;
+var X = {
+  MIN: 0,
+  MAX: 1200,
+};
 
-var MIN_Y = 130;
-var MAX_Y = 630;
+var Y = {
+  MIN: 130,
+  MAX: 630,
+};
 
-var PIN_WIDTH = 50;
-var PIN_HEIGHT = 70;
+var Pin = {
+  WIDTH: 50,
+  HEIGHT: 70,
+};
 
 var DESCRIPTIONS = [
   'Великолепный таун-хауз в центре Токио. Подходит как туристам, так и бизнесменам. Дом полностью укомплектован и имеет свежий ремонт.',
@@ -76,110 +89,89 @@ var DESCRIPTIONS = [
 ];
 
 var PHOTOS = [
-
-  ['https://cdn.ostrovok.ru/t/x500/mec/hotels/11000000/10360000/10357700/10357605/10357605_25_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/11000000/10360000/10357700/10357605/10357605_27_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/11000000/10360000/10357700/10357605/10357605_17_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/11000000/10360000/10357700/10357605/10357605_30_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/10000000/9160000/9151200/9151174/9151174_1_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/10000000/9160000/9151200/9151174/9151174_12_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/10000000/9160000/9151200/9151174/9151174_5_b.jpg'],
-
-  ['https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/01488611-c1f9-4854-ad67-9f0ad3e857e6.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/d976dd4b-2a7e-415a-a2a2-afc51caf8006.jpeg'],
-
-  [],
-
-  ['https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/5a29d708-9396-40bf-b002-92c5fdeb5c90.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/23e332cb-1379-4582-85ac-901d6c441635.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/1c859bbf-61d6-4295-b463-c1d0cbf62592.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/f5e66549-1940-4659-b27a-652f5c809231.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/11000000/10360000/10357700/10357605/10357605_30_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/laterooms/hotelphotos/laterooms/274510/gallery/economy-apartment-shinjuku-tokyo-tokyo_040220130219545024.jpg',
-    'https://cdn.ostrovok.ru/t/x500/laterooms/hotelphotos/laterooms/274510/gallery/economy-apartment-shinjuku-tokyo-tokyo_040220130215449816.jpg',
-    'https://cdn.ostrovok.ru/t/x500/laterooms/hotelphotos/laterooms/274510/gallery/economy-apartment-shinjuku-tokyo-tokyo_040220130206399539.jpg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/69d53ff8-cd47-479d-8c9a-5170352aa169.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/19614107-a1da-4a0b-8a93-95107704a598.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/a97c72b9-e311-4a5a-863d-ea1e31ae9924.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/d2a52c68-e877-4902-be6d-c7f3cb198437.jpeg'],
-
-  ['https://cdn.ostrovok.ru/t/x500/mec/hotels/5000000/4500000/4493700/4493658/4493658_17_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/mec/b4/c6/b4c674087f12b74bc71fe073923ec744dfe1ed8f.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/mec/1e/e8/1ee854db105a1f6bcd19ea62e1aa294724af7885.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/mec/ca/9a/ca9ad256650553cdce9d8ff8baad93d4f17b9484.jpeg'],
-
-  ['https://cdn.ostrovok.ru/t/x500/mec/a4/bb/a4bbfa3d98c0ddf60e95e610509dbede8160e40e.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/1000000/480000/470500/470466/470466_12_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/mec/hotels/1000000/480000/470500/470466/470466_17_b.jpg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/aa9f9334-acd2-46f7-ae6e-4ae039376ec6.jpeg'],
-
-  ['https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/987935fb-633a-46b8-9b76-76af9f35c5e3.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/434b2eda-5af9-4b93-b97d-4e7514621ff1.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/fa9c3bba-a64a-4019-ab50-102bf6e5d691.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/f779d886-18a6-4ffb-b7c2-f5d4d0c8952a.jpeg'],
-
-  ['https://cdn.ostrovok.ru/t/x500/mec/9b/6c/9b6cacd832ce9f3db3f17b3a2f368958710ce518.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/mec/9c/5d/9c5dc5a6daf5353bb44b5696df1c1186c55173b9.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/mec/cd/c6/cdc6e4a1df6259cb54c75edb6ac351180b49b5ec.jpeg',
-    'https://cdn.ostrovok.ru/t/x500/carsolize/images/hotels/abcedd44-bfbd-411d-9919-fa2ac82ef6b0.jpeg'],
-
+  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
+
+/**
+  * случайное значение из диапазона
+  * @param {number} min - минимальное значение
+  * @param {number} max - максимальное значение
+  * @return {number} случайное значение
+  */
 
 var getRandomBetween = function (min, max) {
   var random = min + Math.random() * (max + 1 - min);
   return Math.floor(random);
 };
 
-var genAvatar = function (index) {
+var getAvatar = function (index) {
   return 'img/avatars/user0' + ++index + '.png';
 };
 
-var genValueOfKeyFromData = function (data, index) {
-  return data[index];
+var getElementFromArray = function (array, index) {
+  return array[index];
 };
 
-var genRandomValueOfKeyFromData = function (data, min, max) {
-  return data[getRandomBetween(min, max)];
+var getRandomElementFromArray = function (array, min, max) {
+  return array[getRandomBetween(min, max)];
 };
 
-var getFeatures = function (min, max) {
-  var features = [];
-  for (var i = 0; i < getRandomBetween(min, max); i++) {
-    var originFeature = FEATURES[getRandomBetween(min, max)];
-    if (features.includes(originFeature)) {
-      continue;
-    }
-    features.push(originFeature);
-  }
-  return features;
+/**
+  * случайный ключ из диапазона ключей объекта через преобразование его в массив
+  * @param {object} obj - исходный объект
+  * @param {number} min - 0 индекс массива
+  * @param {number} max - значение последнего индекса массива
+  * @return {string} случайный ключ
+  */
+
+var getRandomKeyOfObject = function (obj, min, max) {
+  return Object.keys(obj).slice()[getRandomBetween(min, max)];
 };
 
-var getAd = function (index) {
+/**
+  * случайной длины массив преобразованный из ключей исходного объекта
+  * @param {object} obj - исходный объект
+  * @param {number} min - 0 индекс массива
+  * @param {number} max - значение последнего индекса массива
+  * @return {array} случайной длины массив
+  */
+
+var getRandomArrayFromObject = function (obj, min, max) {
+  return Object.keys(obj).slice(getRandomBetween(min, max));
+};
+
+var getRandomArray = function (data, min, max) {
+  return data.slice(getRandomBetween(min, max));
+};
+
+var generateDataAd = function (index) {
   return {
     author: {
-      avatar: genAvatar(index),
+      avatar: getAvatar(index),
     },
     offer: {
-      title: genValueOfKeyFromData(TITLES, index),
-      address: genValueOfKeyFromData(ADDRESSES, index),
-      price: getRandomBetween(MIN_PRICE, MAX_PRICE),
-      type: genRandomValueOfKeyFromData(TYPES, 0, TYPES.length - 1),
-      rooms: getRandomBetween(MIN_ROOMS, MAX_ROOMS),
-      guests: getRandomBetween(MIN_GUESTS, MAX_GUESTS),
-      checkin: genRandomValueOfKeyFromData(CHECKINOUTS, 0, CHECKINOUTS.length - 1),
-      checkout: genRandomValueOfKeyFromData(CHECKINOUTS, 0, CHECKINOUTS.length - 1),
-      features: getFeatures(0, FEATURES.length - 1),
-      description: genValueOfKeyFromData(DESCRIPTIONS, index),
-      photos: genValueOfKeyFromData(PHOTOS, index),
+      title: getElementFromArray(TITLES, index),
+      address: getElementFromArray(ADDRESSES, index),
+      price: Math.round(getRandomBetween(Price.MIN, Price.MAX) / 100) * 100,
+      type: getRandomKeyOfObject(TYPES, 0, Object.keys(TYPES).length - 1),
+      rooms: getRandomBetween(Rooms.MIN, Rooms.MAX),
+      guests: getRandomBetween(Guests.MIN, Guests.MAX),
+      checkin: getRandomElementFromArray(CHECKIN_OUTS, 0, CHECKIN_OUTS.length - 1),
+      checkout: getRandomElementFromArray(CHECKIN_OUTS, 0, CHECKIN_OUTS.length - 1),
+      features: getRandomArrayFromObject(FEATURES, 0, Object.keys(FEATURES).length - 1),
+      description: getElementFromArray(DESCRIPTIONS, index),
+      photos: getRandomArray(PHOTOS, 0, PHOTOS.length - 1),
     },
     location: {
-      x: getRandomBetween(MIN_X, MAX_X),
-      y: getRandomBetween(MIN_Y, MAX_Y),
+      x: getRandomBetween(X.MIN, X.MAX),
+      y: getRandomBetween(Y.MIN, Y.MAX),
     },
   };
 };
 
-var getAds = function (adsLength, ad) {
+var generateDataAds = function (adsLength, ad) {
   var ads = [];
   for (var i = 0; i < adsLength; i++) {
     ads.push(ad(i));
@@ -188,26 +180,88 @@ var getAds = function (adsLength, ad) {
   return ads;
 };
 
-var ads = getAds(MAX_ADS, getAd);
+var dataAds = generateDataAds(NUMBER_ADS, generateDataAd);
 
-var renderAd = function (ad) {
+var pinTemplate = document.querySelector('#pin').content;
+
+var renderPin = function (ad) {
   var pin = pinTemplate.cloneNode(true);
-  pin.querySelector('.map__pin').style.left = ad.location.x - PIN_WIDTH / 2 + 'px';
-  pin.querySelector('.map__pin').style.top = ad.location.y - PIN_HEIGHT + 'px';
+  pin.querySelector('.map__pin').style.left = ad.location.x - Pin.WIDTH / 2 + 'px';
+  pin.querySelector('.map__pin').style.top = ad.location.y - Pin.HEIGHT + 'px';
   pin.querySelector('.map__pin img').src = ad.author.avatar;
   pin.querySelector('.map__pin img').alt = ad.offer.title;
 
   return pin;
 };
 
-var mapPins = document.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#pin').content;
-var fragment = document.createDocumentFragment();
+var pinFragment = document.createDocumentFragment();
 
-ads.forEach(function (ad) {
-  fragment.append(renderAd(ad));
+dataAds.forEach(function (ad) {
+  pinFragment.append(renderPin(ad));
 });
 
-mapPins.append(fragment);
+var mapPins = document.querySelector('.map__pins');
+mapPins.append(pinFragment);
+
+var cardFeatureTemplate = document.querySelector('#card-feature').content;
+
+var getCardFeature = function (feature) {
+  var cardFeature = cardFeatureTemplate.cloneNode(true);
+  cardFeature.querySelector('.popup__feature').classList.add('popup__feature--' + feature);
+
+  return cardFeature;
+};
+
+var getCardFeatures = function (ad) {
+  var cardFeatureFragment = document.createDocumentFragment();
+
+  (ad.offer.features).forEach(function (feature) {
+    cardFeatureFragment.append(getCardFeature(FEATURES[feature]));
+  });
+
+  return cardFeatureFragment;
+};
+
+var cardPhotoTemplate = document.querySelector('#card-photo').content;
+
+var getCardPhoto = function (photo) {
+  var cardPhoto = cardPhotoTemplate.cloneNode(true);
+  cardPhoto.querySelector('.popup__photo').src = photo;
+
+  return cardPhoto;
+};
+
+var getCardPhotos = function (ad) {
+  var cardPhotoFragment = document.createDocumentFragment();
+  (ad.offer.photos).forEach(function (photo) {
+    cardPhotoFragment.append(getCardPhoto(photo));
+  });
+
+  return cardPhotoFragment;
+};
+
+var cardTemplate = document.querySelector('#card').content;
+
+var renderCard = function (ad) {
+  var card = cardTemplate.cloneNode(true);
+  card.querySelector('.popup__title').textContent = ad.offer.title;
+  card.querySelector('.popup__text--address').textContent = ad.offer.address;
+  card.querySelector('.popup__text--price').textContent = ad.offer.price + '\u20BD/ночь';
+  card.querySelector('.popup__type').textContent = TYPES[ad.offer.type];
+  card.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
+  card.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ',' + ' выезд до ' + ad.offer.checkout;
+  card.querySelector('.popup__features').append(getCardFeatures(ad));
+  card.querySelector('.popup__description').textContent = ad.offer.description;
+  card.querySelector('.popup__photos').append(getCardPhotos(ad));
+  card.querySelector('.popup__avatar').src = ad.author.avatar;
+
+  return card;
+};
+
+var cardFragment = document.createDocumentFragment();
+cardFragment.append(renderCard(dataAds[0]));
+
+var mapFiltersContainer = document.querySelector('.map__filters-container');
+mapFiltersContainer.before(cardFragment);
 
 document.querySelector('.map').classList.remove('map--faded');
