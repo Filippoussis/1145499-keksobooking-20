@@ -1,10 +1,8 @@
 'use strict';
 
-var NUMBER_ADS = 8;
-
-var Price = {
-  MIN: 1000,
-  MAX: 10000,
+var Ads = {
+  MIN: 1,
+  MAX: 8,
 };
 
 var TITLES = [
@@ -18,22 +16,16 @@ var TITLES = [
   'Тихая квартирка недалеко от метро',
 ];
 
-var ADDRESSES = [
-  '102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 14−3',
-  '102-0075 Tōkyō-to, Chiyoda-ku, Sanbanchō',
-  'Chiyoda-ku, Tōkyō-to 102-0091',
-  '1-1 Chiyoda, Chiyoda-ku, Tōkyō-to 100-8111',
-  '102-0094 Tōkyō-to, Chiyoda-ku, Kioichō, 3',
-  '102-0081 Tōkyō-to, Chiyoda-ku, Yonbanchō, 5−6',
-  'Chiyoda-ku, Tōkyō-to 102-0082',
-  '102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 17−4',
-];
+var Price = {
+  MIN: 1000,
+  MAX: 10000,
+};
 
 var TYPES = {
-  'palace': 'Дворец',
-  'flat': 'Квартира',
-  'house': 'Дом',
-  'bungalo': 'Бунгало',
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalo: 'Бунгало',
 };
 
 var Rooms = {
@@ -46,36 +38,20 @@ var Guests = {
   MAX: 15,
 };
 
-
 var CHECKIN_OUTS = [
   '12:00',
   '13:00',
   '14:00',
 ];
 
-var FEATURES = {
-  'wifi': 'wifi',
-  'dishwasher': 'dishwasher',
-  'parking': 'parking',
-  'washer': 'washer',
-  'elevator': 'elevator',
-  'conditioner': 'conditioner',
-};
-
-var X = {
-  MIN: 0,
-  MAX: 1200,
-};
-
-var Y = {
-  MIN: 130,
-  MAX: 630,
-};
-
-var Pin = {
-  WIDTH: 50,
-  HEIGHT: 70,
-};
+var FEATURES = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner',
+];
 
 var DESCRIPTIONS = [
   'Великолепный таун-хауз в центре Токио. Подходит как туристам, так и бизнесменам. Дом полностью укомплектован и имеет свежий ремонт.',
@@ -94,96 +70,113 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-/**
-  * случайное значение из диапазона
-  * @param {number} min - минимальное значение
-  * @param {number} max - максимальное значение
-  * @return {number} случайное значение
-  */
+var Position = {
+  MIN_X: 0,
+  MAX_X: 1200,
+  MIN_Y: 130,
+  MAX_Y: 630,
+};
 
+var Pin = {
+  WIDTH: 50,
+  HEIGHT: 70,
+};
+
+/**
+ * случайное значение из диапазона
+ * @param {number} min - минимальное значение
+ * @param {number} max - максимальное значение
+ * @return {number} случайное значение
+ */
 var getRandomBetween = function (min, max) {
   var random = min + Math.random() * (max + 1 - min);
   return Math.floor(random);
 };
 
-var getAvatar = function (index) {
-  return 'img/avatars/user0' + ++index + '.png';
-};
+/**
+ * массив последовательных натуральных чисел
+ * @param {number} start - начальное значение натурального числа
+ * @param {number} end - конечное значение натурального числа
+ * @return {array} массив последовательных натуральных чисел
+ */
+var getArrayNaturalNumbers = function (start, end) {
+  var arr = [];
+  for (var i = start; i <= end; i++) {
+    arr.push(i);
+  }
 
-var getElementFromArray = function (array, index) {
-  return array[index];
-};
-
-var getRandomElementFromArray = function (array, min, max) {
-  return array[getRandomBetween(min, max)];
+  return arr;
 };
 
 /**
-  * случайный ключ из диапазона ключей объекта через преобразование его в массив
-  * @param {object} obj - исходный объект
-  * @param {number} min - 0 индекс массива
-  * @param {number} max - значение последнего индекса массива
-  * @return {string} случайный ключ
-  */
-
-var getRandomKeyOfObject = function (obj, min, max) {
-  return Object.keys(obj).slice()[getRandomBetween(min, max)];
+ * случайное значение из массива
+ * @param {array} array - исходный массив значений
+ * @return {*} случайное значение из массива
+ */
+var getRandomElementFromArray = function (array) {
+  return array[getRandomBetween(0, array.length - 1)];
 };
 
 /**
-  * случайной длины массив преобразованный из ключей исходного объекта
-  * @param {object} obj - исходный объект
-  * @param {number} min - 0 индекс массива
-  * @param {number} max - значение последнего индекса массива
-  * @return {array} случайной длины массив
-  */
-
-var getRandomArrayFromObject = function (obj, min, max) {
-  return Object.keys(obj).slice(getRandomBetween(min, max));
+ * массив случайной длины
+ * @param {array} array - исходный массив значений
+ * @return {array} массив случайной длины
+ */
+var getRandomArray = function (array) {
+  return array.slice(getRandomBetween(0, array.length - 1));
 };
 
-var getRandomArray = function (data, min, max) {
-  return data.slice(getRandomBetween(min, max));
-};
+var numberSeriesOfAds = getArrayNaturalNumbers(Ads.MIN, Ads.MAX);
 
-var generateDataAd = function (index) {
+/**
+ * генерирует карточку объявления
+ * @return {object} возвращает карточку объявления в виде объекта с заданными полями
+ */
+var generateDataAd = function () {
   return {
     author: {
-      avatar: getAvatar(index),
+      avatar: 'img/avatars/user0' + numberSeriesOfAds.pop() + '.png',
     },
     offer: {
-      title: getElementFromArray(TITLES, index),
-      address: getElementFromArray(ADDRESSES, index),
+      title: getRandomElementFromArray(TITLES),
+      address: '' + location.x + ', ' + location.y + '',
       price: Math.round(getRandomBetween(Price.MIN, Price.MAX) / 100) * 100,
-      type: getRandomKeyOfObject(TYPES, 0, Object.keys(TYPES).length - 1),
+      type: getRandomElementFromArray(Object.keys(TYPES)),
       rooms: getRandomBetween(Rooms.MIN, Rooms.MAX),
       guests: getRandomBetween(Guests.MIN, Guests.MAX),
-      checkin: getRandomElementFromArray(CHECKIN_OUTS, 0, CHECKIN_OUTS.length - 1),
-      checkout: getRandomElementFromArray(CHECKIN_OUTS, 0, CHECKIN_OUTS.length - 1),
-      features: getRandomArrayFromObject(FEATURES, 0, Object.keys(FEATURES).length - 1),
-      description: getElementFromArray(DESCRIPTIONS, index),
-      photos: getRandomArray(PHOTOS, 0, PHOTOS.length - 1),
+      checkin: getRandomElementFromArray(CHECKIN_OUTS),
+      checkout: getRandomElementFromArray(CHECKIN_OUTS),
+      features: getRandomArray(FEATURES),
+      description: getRandomElementFromArray(DESCRIPTIONS),
+      photos: getRandomElementFromArray(PHOTOS),
     },
     location: {
-      x: getRandomBetween(X.MIN, X.MAX),
-      y: getRandomBetween(Y.MIN, Y.MAX),
+      x: getRandomBetween(Position.MIN_X, Position.MAX_X),
+      y: getRandomBetween(Position.MIN_Y, Position.MAX_Y),
     },
   };
 };
 
-var generateDataAds = function (adsLength, ad) {
+/**
+ * генерирует массив объектов карточек объявлений
+ * @return {array} возвращает массив объектов карточек объявлений
+ */
+var generateDataAds = function () {
   var ads = [];
-  for (var i = 0; i < adsLength; i++) {
-    ads.push(ad(i));
+  for (var i = 0; i < Ads.MAX; i++) {
+    ads.push(generateDataAd());
   }
 
   return ads;
 };
 
-var dataAds = generateDataAds(NUMBER_ADS, generateDataAd);
-
 var pinTemplate = document.querySelector('#pin').content;
 
+/**
+ * кастомизация метки объявления
+ * @param {object} ad - объект карточки объявления
+ * @return {HTMLElement} возвращает кастомизированный HTMLElement на основе склонированного шаблона
+ */
 var renderPin = function (ad) {
   var pin = pinTemplate.cloneNode(true);
   pin.querySelector('.map__pin').style.left = ad.location.x - Pin.WIDTH / 2 + 'px';
@@ -196,6 +189,8 @@ var renderPin = function (ad) {
 
 var pinFragment = document.createDocumentFragment();
 
+var dataAds = generateDataAds();
+
 dataAds.forEach(function (ad) {
   pinFragment.append(renderPin(ad));
 });
@@ -203,65 +198,65 @@ dataAds.forEach(function (ad) {
 var mapPins = document.querySelector('.map__pins');
 mapPins.append(pinFragment);
 
-var cardFeatureTemplate = document.querySelector('#card-feature').content;
+// var cardFeatureTemplate = document.querySelector('#card-feature').content;
 
-var getCardFeature = function (feature) {
-  var cardFeature = cardFeatureTemplate.cloneNode(true);
-  cardFeature.querySelector('.popup__feature').classList.add('popup__feature--' + feature);
+// var getCardFeature = function (feature) {
+//   var cardFeature = cardFeatureTemplate.cloneNode(true);
+//   cardFeature.querySelector('.popup__feature').classList.add('popup__feature--' + feature);
 
-  return cardFeature;
-};
+//   return cardFeature;
+// };
 
-var getCardFeatures = function (ad) {
-  var cardFeatureFragment = document.createDocumentFragment();
+// var getCardFeatures = function (ad) {
+//   var cardFeatureFragment = document.createDocumentFragment();
 
-  (ad.offer.features).forEach(function (feature) {
-    cardFeatureFragment.append(getCardFeature(FEATURES[feature]));
-  });
+//   (ad.offer.features).forEach(function (feature) {
+//     cardFeatureFragment.append(getCardFeature(FEATURES[feature]));
+//   });
 
-  return cardFeatureFragment;
-};
+//   return cardFeatureFragment;
+// };
 
-var cardPhotoTemplate = document.querySelector('#card-photo').content;
+// var cardPhotoTemplate = document.querySelector('#card-photo').content;
 
-var getCardPhoto = function (photo) {
-  var cardPhoto = cardPhotoTemplate.cloneNode(true);
-  cardPhoto.querySelector('.popup__photo').src = photo;
+// var getCardPhoto = function (photo) {
+//   var cardPhoto = cardPhotoTemplate.cloneNode(true);
+//   cardPhoto.querySelector('.popup__photo').src = photo;
 
-  return cardPhoto;
-};
+//   return cardPhoto;
+// };
 
-var getCardPhotos = function (ad) {
-  var cardPhotoFragment = document.createDocumentFragment();
-  (ad.offer.photos).forEach(function (photo) {
-    cardPhotoFragment.append(getCardPhoto(photo));
-  });
+// var getCardPhotos = function (ad) {
+//   var cardPhotoFragment = document.createDocumentFragment();
+//   (ad.offer.photos).forEach(function (photo) {
+//     cardPhotoFragment.append(getCardPhoto(photo));
+//   });
 
-  return cardPhotoFragment;
-};
+//   return cardPhotoFragment;
+// };
 
-var cardTemplate = document.querySelector('#card').content;
+// var cardTemplate = document.querySelector('#card').content;
 
-var renderCard = function (ad) {
-  var card = cardTemplate.cloneNode(true);
-  card.querySelector('.popup__title').textContent = ad.offer.title;
-  card.querySelector('.popup__text--address').textContent = ad.offer.address;
-  card.querySelector('.popup__text--price').textContent = ad.offer.price + '\u20BD/ночь';
-  card.querySelector('.popup__type').textContent = TYPES[ad.offer.type];
-  card.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
-  card.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ',' + ' выезд до ' + ad.offer.checkout;
-  card.querySelector('.popup__features').append(getCardFeatures(ad));
-  card.querySelector('.popup__description').textContent = ad.offer.description;
-  card.querySelector('.popup__photos').append(getCardPhotos(ad));
-  card.querySelector('.popup__avatar').src = ad.author.avatar;
+// var renderCard = function (ad) {
+//   var card = cardTemplate.cloneNode(true);
+//   card.querySelector('.popup__title').textContent = ad.offer.title;
+//   card.querySelector('.popup__text--address').textContent = ad.offer.address;
+//   card.querySelector('.popup__text--price').textContent = ad.offer.price + '\u20BD/ночь';
+//   card.querySelector('.popup__type').textContent = TYPES[ad.offer.type];
+//   card.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
+//   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ',' + ' выезд до ' + ad.offer.checkout;
+//   card.querySelector('.popup__features').append(getCardFeatures(ad));
+//   card.querySelector('.popup__description').textContent = ad.offer.description;
+//   card.querySelector('.popup__photos').append(getCardPhotos(ad));
+//   card.querySelector('.popup__avatar').src = ad.author.avatar;
 
-  return card;
-};
+//   return card;
+// };
 
-var cardFragment = document.createDocumentFragment();
-cardFragment.append(renderCard(dataAds[0]));
+// var cardFragment = document.createDocumentFragment();
+// cardFragment.append(renderCard(dataAds[0]));
 
-var mapFiltersContainer = document.querySelector('.map__filters-container');
-mapFiltersContainer.before(cardFragment);
+// var mapFiltersContainer = document.querySelector('.map__filters-container');
+// mapFiltersContainer.before(cardFragment);
 
 document.querySelector('.map').classList.remove('map--faded');
