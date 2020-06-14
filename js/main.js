@@ -17,8 +17,8 @@ var TITLES = [
 ];
 
 var Price = {
-  MIN: 1000,
-  MAX: 10000,
+  MIN: 0,
+  MAX: 1000000,
 };
 
 var TYPES = {
@@ -77,9 +77,15 @@ var Position = {
   MAX_Y: 630,
 };
 
-var Pin = {
-  WIDTH: 50,
-  HEIGHT: 70,
+var PinSize = {
+  Main: {
+    WIDTH: 65,
+    HEIGHT: 65,
+  },
+  Similar: {
+    WIDTH: 50,
+    HEIGHT: 70,
+  },
 };
 
 /**
@@ -141,7 +147,7 @@ var generateDataAd = function () {
     },
     offer: {
       title: getRandomElementFromArray(TITLES),
-      address: '' + positionX + ', ' + positionY + '',
+      address: '' + positionX + ', ' + positionY,
       price: Math.round(getRandomBetween(Price.MIN, Price.MAX) / 100) * 100,
       type: getRandomElementFromArray(Object.keys(TYPES)),
       rooms: getRandomBetween(Rooms.MIN, Rooms.MAX),
@@ -181,8 +187,8 @@ var pinTemplate = document.querySelector('#pin').content;
  */
 var renderPin = function (ad) {
   var pin = pinTemplate.cloneNode(true);
-  pin.querySelector('.map__pin').style.left = ad.location.x - Pin.WIDTH / 2 + 'px';
-  pin.querySelector('.map__pin').style.top = ad.location.y - Pin.HEIGHT + 'px';
+  pin.querySelector('.map__pin').style.left = ad.location.x - PinSize.Similar.WIDTH / 2 + 'px';
+  pin.querySelector('.map__pin').style.top = ad.location.y - PinSize.Similar.HEIGHT + 'px';
   pin.querySelector('.map__pin img').src = ad.author.avatar;
   pin.querySelector('.map__pin img').alt = ad.offer.title;
 
@@ -264,4 +270,41 @@ cardFragment.append(renderCard(dataAds[0]));
 var mapFiltersContainer = document.querySelector('.map__filters-container');
 mapFiltersContainer.before(cardFragment);
 
-document.querySelector('.map').classList.remove('map--faded');
+// Глава 4. Обработка событий
+
+var map = document.querySelector('.map');
+var mainPin = map.querySelector('.map__pin--main');
+
+var adForm = document.querySelector('.ad-form');
+
+var adFormAddress = adForm.querySelector('#address');
+adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.Main.WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.Main.HEIGHT / 2);
+
+var adFormHeader = adForm.querySelector('.ad-form-header');
+adFormHeader.setAttribute('disabled', 'disabled');
+
+var adFormElements = adForm.querySelectorAll('.ad-form__element');
+adFormElements.forEach(function (el) {
+  el.setAttribute('disabled', 'disabled');
+});
+
+var onPressMainPin = function (evt) {
+  if (evt.button === 0 || evt.key === 'Enter') {
+    activateMode();
+  }
+};
+
+var activateMode = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  adFormHeader.removeAttribute('disabled');
+  adFormElements.forEach(function (el) {
+    el.removeAttribute('disabled');
+  });
+  adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.Main.WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.Similar.HEIGHT);
+  mainPin.removeEventListener('mousedown', onPressMainPin);
+  mainPin.removeEventListener('keydown', onPressMainPin);
+};
+
+mainPin.addEventListener('mousedown', onPressMainPin);
+mainPin.addEventListener('keydown', onPressMainPin);
