@@ -195,16 +195,18 @@ var renderPin = function (ad) {
   return pin;
 };
 
-var pinFragment = document.createDocumentFragment();
-
 var dataAds = generateDataAds();
 
-dataAds.forEach(function (ad) {
-  pinFragment.append(renderPin(ad));
-});
+var renderPins = function () {
+  var mapPins = document.querySelector('.map__pins');
+  var pinFragment = document.createDocumentFragment();
 
-var mapPins = document.querySelector('.map__pins');
-mapPins.append(pinFragment);
+  dataAds.forEach(function (ad) {
+    pinFragment.append(renderPin(ad));
+  });
+
+  mapPins.append(pinFragment);
+};
 
 var cardTemplate = document.querySelector('#card').content;
 var photoTemplate = cardTemplate.querySelector('.popup__photo');
@@ -264,12 +266,6 @@ var renderCard = function (ad) {
   return card;
 };
 
-var cardFragment = document.createDocumentFragment();
-cardFragment.append(renderCard(dataAds[0]));
-
-var mapFiltersContainer = document.querySelector('.map__filters-container');
-mapFiltersContainer.before(cardFragment);
-
 // Глава 4. Обработка событий
 
 var map = document.querySelector('.map');
@@ -288,6 +284,31 @@ adFormElements.forEach(function (el) {
   el.setAttribute('disabled', 'disabled');
 });
 
+var ativatePins = function () {
+  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+  var mapFiltersContainer = document.querySelector('.map__filters-container');
+
+  var openCard = function (ad) {
+    var mapCard = map.querySelector('.map__card');
+    if (!mapCard) {
+      mapFiltersContainer.before(renderCard(ad));
+    } else {
+      mapCard.replaceWith(renderCard(ad));
+    }
+  };
+
+  var onPressPin = function (pin, ad) {
+    pin.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      openCard(ad);
+    });
+  };
+
+  for (var i = 0; i < pins.length; i++) {
+    onPressPin(pins[i], dataAds[i]);
+  }
+};
+
 var onPressMainPin = function (evt) {
   if (evt.button === 0 || evt.key === 'Enter') {
     activateMode();
@@ -295,13 +316,16 @@ var onPressMainPin = function (evt) {
 };
 
 var activateMode = function () {
-  map.classList.remove('map--faded');
+  renderPins();
+  ativatePins();
+
   adForm.classList.remove('ad-form--disabled');
   adFormHeader.removeAttribute('disabled');
   adFormElements.forEach(function (el) {
     el.removeAttribute('disabled');
   });
   adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.Main.WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.Similar.HEIGHT);
+  map.classList.remove('map--faded');
   mainPin.removeEventListener('mousedown', onPressMainPin);
   mainPin.removeEventListener('keydown', onPressMainPin);
 };
