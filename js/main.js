@@ -197,14 +197,12 @@ var renderPin = function (ad) {
 
 var dataAds = generateDataAds();
 
-var renderPins = function () {
+var renderPins = function (ads) {
   var mapPins = document.querySelector('.map__pins');
   var pinFragment = document.createDocumentFragment();
-
-  dataAds.forEach(function (ad) {
+  ads.forEach(function (ad) {
     pinFragment.append(renderPin(ad));
   });
-
   mapPins.append(pinFragment);
 };
 
@@ -284,28 +282,45 @@ adFormElements.forEach(function (el) {
   el.setAttribute('disabled', 'disabled');
 });
 
-var ativatePins = function () {
-  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+var closeCard = function () {
+  var mapCard = document.querySelector('.map__card');
+  mapCard.classList.add('hidden');
+  document.removeEventListener('keydown', onCardEscPress);
+};
+
+var onCardEscPress = function (evt) {
+  if (evt.key === 'Escape') {
+    closeCard();
+  }
+};
+
+var openCard = function (ad) {
+  var cardData = renderCard(ad);
+  var mapCard = document.querySelector('.map__card');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
 
-  var openCard = function (ad) {
-    var mapCard = map.querySelector('.map__card');
-    if (!mapCard) {
-      mapFiltersContainer.before(renderCard(ad));
-    } else {
-      mapCard.replaceWith(renderCard(ad));
-    }
-  };
+  if (!mapCard) {
+    mapFiltersContainer.before(cardData);
+  } else {
+    mapCard.replaceWith(cardData);
+  }
 
-  var onPressPin = function (pin, ad) {
+  var popupClose = document.querySelector('.popup__close');
+  popupClose.focus();
+  popupClose.addEventListener('click', closeCard);
+  document.addEventListener('keydown', onCardEscPress);
+};
+
+var ativatePins = function () {
+  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+  var addPressPinHandler = function (pin, ad) {
     pin.addEventListener('click', function (evt) {
       evt.preventDefault();
       openCard(ad);
     });
   };
-
   for (var i = 0; i < pins.length; i++) {
-    onPressPin(pins[i], dataAds[i]);
+    addPressPinHandler(pins[i], dataAds[i]);
   }
 };
 
@@ -316,7 +331,7 @@ var onPressMainPin = function (evt) {
 };
 
 var activateMode = function () {
-  renderPins();
+  renderPins(dataAds);
   ativatePins();
 
   adForm.classList.remove('ad-form--disabled');
