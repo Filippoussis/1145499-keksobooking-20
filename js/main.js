@@ -78,14 +78,17 @@ var Position = {
 };
 
 var PinSize = {
-  Main: {
-    WIDTH: 65,
-    HEIGHT: 65,
-  },
-  Similar: {
-    WIDTH: 50,
-    HEIGHT: 70,
-  },
+  MAIN_WIDTH: 65,
+  MAIN_HEIGHT: 65,
+  SIMILAR_WIDTH: 50,
+  SIMILAR_HEIGHT: 70,
+};
+
+var MinPrice = {
+  bungalo: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
 };
 
 /**
@@ -187,8 +190,8 @@ var pinTemplate = document.querySelector('#pin').content;
  */
 var renderPin = function (ad) {
   var pin = pinTemplate.cloneNode(true);
-  pin.querySelector('.map__pin').style.left = ad.location.x - PinSize.Similar.WIDTH / 2 + 'px';
-  pin.querySelector('.map__pin').style.top = ad.location.y - PinSize.Similar.HEIGHT + 'px';
+  pin.querySelector('.map__pin').style.left = ad.location.x - PinSize.SIMILAR_WIDTH / 2 + 'px';
+  pin.querySelector('.map__pin').style.top = ad.location.y - PinSize.SIMILAR_HEIGHT + 'px';
   pin.querySelector('.map__pin img').src = ad.author.avatar;
   pin.querySelector('.map__pin img').alt = ad.offer.title;
 
@@ -272,7 +275,7 @@ var mainPin = map.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 
 var adFormAddress = adForm.querySelector('#address');
-adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.Main.WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.Main.HEIGHT / 2);
+adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.MAIN_HEIGHT / 2);
 
 var adFormHeader = adForm.querySelector('.ad-form-header');
 adFormHeader.setAttribute('disabled', 'disabled');
@@ -311,7 +314,7 @@ var openCard = function (ad) {
   document.addEventListener('keydown', onCardEscPress);
 };
 
-var ativatePins = function () {
+var ativatePins = function (ads) {
   var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   var addPressPinHandler = function (pin, ad) {
     pin.addEventListener('click', function (evt) {
@@ -320,7 +323,7 @@ var ativatePins = function () {
     });
   };
   for (var i = 0; i < pins.length; i++) {
-    addPressPinHandler(pins[i], dataAds[i]);
+    addPressPinHandler(pins[i], ads[i]);
   }
 };
 
@@ -332,14 +335,14 @@ var onPressMainPin = function (evt) {
 
 var activateMode = function () {
   renderPins(dataAds);
-  ativatePins();
+  ativatePins(dataAds);
 
   adForm.classList.remove('ad-form--disabled');
   adFormHeader.removeAttribute('disabled');
   adFormElements.forEach(function (el) {
     el.removeAttribute('disabled');
   });
-  adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.Main.WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.Similar.HEIGHT);
+  adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.SIMILAR_HEIGHT);
   map.classList.remove('map--faded');
   mainPin.removeEventListener('mousedown', onPressMainPin);
   mainPin.removeEventListener('keydown', onPressMainPin);
@@ -349,6 +352,8 @@ mainPin.addEventListener('mousedown', onPressMainPin);
 mainPin.addEventListener('keydown', onPressMainPin);
 
 // Валидация
+
+// комнаты/гости
 
 var numberRooms = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
@@ -379,4 +384,29 @@ capacity.addEventListener('change', function () {
     capacity.setCustomValidity('');
   }
   capacity.reportValidity();
+});
+
+// заезд/выезд
+
+var timeIn = adForm.querySelector('#timein');
+var timeOut = adForm.querySelector('#timeout');
+
+timeIn.addEventListener('change', function () {
+  timeOut.value = timeIn.value;
+});
+
+timeOut.addEventListener('change', function () {
+  timeIn.value = timeOut.value;
+});
+
+// тип жилья/минимальная цена
+
+var typeHouse = adForm.querySelector('#type');
+var minPrice = adForm.querySelector('#price');
+
+typeHouse.addEventListener('change', function () {
+  var minPriceValue = MinPrice[typeHouse.value];
+  minPrice.value = '';
+  minPrice.min = minPriceValue;
+  minPrice.placeholder = minPriceValue;
 });
