@@ -170,11 +170,12 @@ var generateDataAd = function () {
 
 /**
  * генерирует массив объектов карточек объявлений
+ * @param {number} numberOfAds - количество карточек объявлений
  * @return {array} возвращает массив объектов карточек объявлений
  */
-var generateDataAds = function () {
+var generateDataAds = function (numberOfAds) {
   var ads = [];
-  for (var i = 0; i < Ads.MAX; i++) {
+  for (var i = 0; i < numberOfAds; i++) {
     ads.push(generateDataAd());
   }
 
@@ -198,7 +199,7 @@ var renderPin = function (ad) {
   return pin;
 };
 
-var dataAds = generateDataAds();
+var dataAds = generateDataAds(Ads.MAX);
 
 var renderPins = function (ads) {
   var mapPins = document.querySelector('.map__pins');
@@ -272,18 +273,37 @@ var renderCard = function (ad) {
 var map = document.querySelector('.map');
 var mainPin = map.querySelector('.map__pin--main');
 
-var adForm = document.querySelector('.ad-form');
+var mainForm = document.querySelector('.ad-form');
+var mapFilter = document.querySelector('.map__filters');
 
-var adFormAddress = adForm.querySelector('#address');
+var adFormAddress = mainForm.querySelector('#address');
+
+// здесь реализую фунцию метки при drag and drop
 adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.MAIN_HEIGHT / 2);
 
-var adFormHeader = adForm.querySelector('.ad-form-header');
-adFormHeader.setAttribute('disabled', 'disabled');
+var childrenSetAttribute = function (children) {
+  Array.from(children).forEach(function (child) {
+    child.setAttribute('disabled', 'disabled');
+  });
+};
 
-var adFormElements = adForm.querySelectorAll('.ad-form__element');
-adFormElements.forEach(function (el) {
-  el.setAttribute('disabled', 'disabled');
-});
+var childrenRemoveAttribute = function (children) {
+  Array.from(children).forEach(function (child) {
+    child.removeAttribute('disabled');
+  });
+};
+
+var disabledForms = function (form, filter) {
+  childrenSetAttribute(form.children);
+  childrenSetAttribute(filter.children);
+};
+
+var enabledForms = function (form, filter) {
+  childrenRemoveAttribute(form.children);
+  childrenRemoveAttribute(filter.children);
+};
+
+disabledForms(mainForm, mapFilter);
 
 var closeCard = function () {
   var mapCard = document.querySelector('.map__card');
@@ -336,14 +356,14 @@ var onPressMainPin = function (evt) {
 var activateMode = function () {
   renderPins(dataAds);
   ativatePins(dataAds);
+  enabledForms(mainForm, mapFilter);
 
-  adForm.classList.remove('ad-form--disabled');
-  adFormHeader.removeAttribute('disabled');
-  adFormElements.forEach(function (el) {
-    el.removeAttribute('disabled');
-  });
+  // здесь реализую фунцию метки drag and drop
   adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + PinSize.SIMILAR_HEIGHT);
+
+  mainForm.classList.remove('ad-form--disabled');
   map.classList.remove('map--faded');
+
   mainPin.removeEventListener('mousedown', onPressMainPin);
   mainPin.removeEventListener('keydown', onPressMainPin);
 };
@@ -353,10 +373,10 @@ mainPin.addEventListener('keydown', onPressMainPin);
 
 // Валидация
 
-// комнаты/гости
+// комнаты/гости (пока без отделения данных и логики)
 
-var numberRooms = adForm.querySelector('#room_number');
-var capacity = adForm.querySelector('#capacity');
+var numberRooms = mainForm.querySelector('#room_number');
+var capacity = mainForm.querySelector('#capacity');
 
 numberRooms.addEventListener('change', function () {
   capacity.setCustomValidity('');
@@ -388,25 +408,33 @@ capacity.addEventListener('change', function () {
 
 // заезд/выезд
 
-var timeIn = adForm.querySelector('#timein');
-var timeOut = adForm.querySelector('#timeout');
+var changeTimeInOut = function () {
+  var timeIn = mainForm.querySelector('#timein');
+  var timeOut = mainForm.querySelector('#timeout');
 
-timeIn.addEventListener('change', function () {
-  timeOut.value = timeIn.value;
-});
+  timeIn.addEventListener('change', function () {
+    timeOut.value = timeIn.value;
+  });
 
-timeOut.addEventListener('change', function () {
-  timeIn.value = timeOut.value;
-});
+  timeOut.addEventListener('change', function () {
+    timeIn.value = timeOut.value;
+  });
+};
+
+changeTimeInOut();
 
 // тип жилья/минимальная цена
 
-var typeHouse = adForm.querySelector('#type');
-var minPrice = adForm.querySelector('#price');
+var changeMinPriceOnTypeHouse = function () {
+  var typeHouse = mainForm.querySelector('#type');
+  var minPrice = mainForm.querySelector('#price');
 
-typeHouse.addEventListener('change', function () {
-  var minPriceValue = MinPrice[typeHouse.value];
-  minPrice.value = '';
-  minPrice.min = minPriceValue;
-  minPrice.placeholder = minPriceValue;
-});
+  typeHouse.addEventListener('change', function () {
+    var minPriceValue = MinPrice[typeHouse.value];
+    minPrice.value = '';
+    minPrice.min = minPriceValue;
+    minPrice.placeholder = minPriceValue;
+  });
+};
+
+changeMinPriceOnTypeHouse();
