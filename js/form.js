@@ -54,7 +54,7 @@ window.form = (function () {
     var minPriceHouse = mainForm.querySelector('#price');
 
     typeHouse.addEventListener('change', function () {
-      var minPriceValue = window.mocks.minPrice[typeHouse.value];
+      var minPriceValue = window.data.minPrice[typeHouse.value];
       minPriceHouse.min = minPriceValue;
       minPriceHouse.placeholder = minPriceValue;
     });

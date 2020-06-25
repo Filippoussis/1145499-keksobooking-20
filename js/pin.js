@@ -17,7 +17,7 @@ window.pin = (function () {
     pin.querySelector('.map__pin img').alt = ad.offer.title;
     pin.querySelector('.map__pin').addEventListener('click', function (evt) {
       evt.preventDefault();
-      window.map.openCard(ad);
+      window.popup.openCard(ad);
     });
 
     return pin;
@@ -25,6 +25,10 @@ window.pin = (function () {
 
   return {
 
+    /**
+     * рендер меток объявлений на странице
+     * @param {Array} ads - массив объектов карточек объявлений
+     */
     renderPins: function (ads) {
       var mapPins = document.querySelector('.map__pins');
       var pinFragment = document.createDocumentFragment();

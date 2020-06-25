@@ -87,12 +87,6 @@ window.mocks = (function () {
       SIMILAR_HEIGHT: 70,
     },
 
-    minPrice: {
-      'bungalo': '0',
-      'flat': '1000',
-      'house': '5000',
-      'palace': '10000',
-    },
   };
 
 })();
