@@ -13,7 +13,12 @@ window.map = (function () {
   // здесь реализую фунцию метки при drag and drop
   adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.mocks.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.mocks.PinSize.MAIN_HEIGHT / 2);
 
-  var addRemoveAttributeOnChildren = function (children, isAdd) {
+  /**
+    * добавляет/удаляет атрибут детям элемента
+    * @param {HTMLCollection} children - коллекция DOM элементов
+    * @param {Boolean} isAdd - флаг, принимающий значение true или false
+    */
+  var toggleAttributeOnChildren = function (children, isAdd) {
     Array.from(children).forEach(function (child) {
       if (isAdd) {
         child.setAttribute('disabled', 'disabled');
@@ -23,27 +28,50 @@ window.map = (function () {
     });
   };
 
-  var activatedForms = function (form, filter, isDisabled) {
+  /**
+    * активирует/деактивирует элементы форм
+    * @param {HTMLElement} form - DOM элемент
+    * @param {HTMLElement} filter - DOM элемент
+    * @param {Boolean} isDisabled - флаг, принимающий значение true или false
+    */
+  var activateForms = function (form, filter, isDisabled) {
     if (!isDisabled) {
-      addRemoveAttributeOnChildren(form.children, true);
-      addRemoveAttributeOnChildren(filter.children, true);
+      toggleAttributeOnChildren(form.children, true);
+      toggleAttributeOnChildren(filter.children, true);
     } else {
-      addRemoveAttributeOnChildren(form.children, false);
-      addRemoveAttributeOnChildren(filter.children, false);
+      toggleAttributeOnChildren(form.children, false);
+      toggleAttributeOnChildren(filter.children, false);
     }
   };
 
-  activatedForms(mainForm, mapFilter, false);
+  activateForms(mainForm, mapFilter, false);
 
-  var onPressMainPin = function (evt) {
-    if (evt.button === 0 || evt.key === 'Enter') {
-      activateMode();
+  /**
+    * вызывает функцию при нажатии клавиши Enter
+    * @param {Object} evt - объект хранит последнее событие
+    */
+  var onMainPinEnterPress = function (evt) {
+    if (evt.key === 'Enter') {
+      activateMap();
     }
   };
 
-  var activateMode = function () {
+  /**
+    * вызывает функцию при нажатии главной кнопки на мыши
+    * @param {Object} evt - объект хранит последнее событие
+    */
+  var onMainPinGeneralButtonPress = function (evt) {
+    if (evt.button === 0) {
+      activateMap();
+    }
+  };
+
+  /**
+    * активирует карту
+    */
+  var activateMap = function () {
     window.pin.renderPins(window.data.dataAds);
-    activatedForms(mainForm, mapFilter, true);
+    activateForms(mainForm, mapFilter, true);
 
     // здесь реализую фунцию метки drag and drop
     adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.mocks.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.mocks.PinSize.SIMILAR_HEIGHT);
@@ -51,11 +79,11 @@ window.map = (function () {
     mainForm.classList.remove('ad-form--disabled');
     map.classList.remove('map--faded');
 
-    mainPin.removeEventListener('mousedown', onPressMainPin);
-    mainPin.removeEventListener('keydown', onPressMainPin);
+    mainPin.removeEventListener('mousedown', onMainPinGeneralButtonPress);
+    mainPin.removeEventListener('keydown', onMainPinEnterPress);
   };
 
-  mainPin.addEventListener('mousedown', onPressMainPin);
-  mainPin.addEventListener('keydown', onPressMainPin);
+  mainPin.addEventListener('mousedown', onMainPinGeneralButtonPress);
+  mainPin.addEventListener('keydown', onMainPinEnterPress);
 
 })();

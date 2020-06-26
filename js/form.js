@@ -34,6 +34,9 @@ window.form = (function () {
     capacity.reportValidity();
   });
 
+  /**
+    * добавляет обработчик событий на поле выбора времени заезда/выезда
+    */
   var changeTimeInOut = function () {
     var timeIn = mainForm.querySelector('#timein');
     var timeOut = mainForm.querySelector('#timeout');
@@ -49,6 +52,9 @@ window.form = (function () {
 
   changeTimeInOut();
 
+  /**
+    * добавляет обработчик событий на поле выбора типа жилья
+    */
   var changeMinPriceOnTypeHouse = function () {
     var typeHouse = mainForm.querySelector('#type');
     var minPriceHouse = mainForm.querySelector('#price');

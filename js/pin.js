@@ -5,7 +5,7 @@ window.pin = (function () {
   var pinTemplate = document.querySelector('#pin').content;
 
   /**
-   * кастомизация метки объявления
+   * рендер метки объявления
    * @param {object} ad - объект карточки объявления
    * @return {HTMLElement} возвращает кастомизированный HTMLElement на основе склонированного шаблона
    */
