@@ -11,7 +11,7 @@ window.map = (function () {
   var adFormAddress = mainForm.querySelector('#address');
 
   // здесь реализую фунцию метки при drag and drop
-  adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.mocks.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.mocks.PinSize.MAIN_HEIGHT / 2);
+  adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.PinSize.MAIN_HEIGHT / 2);
 
   /**
     * добавляет/удаляет атрибут детям элемента
@@ -74,7 +74,7 @@ window.map = (function () {
     activateForms(mainForm, mapFilter, true);
 
     // здесь реализую фунцию метки drag and drop
-    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.mocks.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.mocks.PinSize.SIMILAR_HEIGHT);
+    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.PinSize.SIMILAR_HEIGHT);
 
     mainForm.classList.remove('ad-form--disabled');
     map.classList.remove('map--faded');

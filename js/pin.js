@@ -11,8 +11,8 @@ window.pin = (function () {
    */
   var renderPin = function (ad) {
     var pin = pinTemplate.cloneNode(true);
-    pin.querySelector('.map__pin').style.left = ad.location.x - window.mocks.PinSize.SIMILAR_WIDTH / 2 + 'px';
-    pin.querySelector('.map__pin').style.top = ad.location.y - window.mocks.PinSize.SIMILAR_HEIGHT + 'px';
+    pin.querySelector('.map__pin').style.left = ad.location.x - window.data.PinSize.SIMILAR_WIDTH / 2 + 'px';
+    pin.querySelector('.map__pin').style.top = ad.location.y - window.data.PinSize.SIMILAR_HEIGHT + 'px';
     pin.querySelector('.map__pin img').src = ad.author.avatar;
     pin.querySelector('.map__pin img').alt = ad.offer.title;
     pin.querySelector('.map__pin').addEventListener('click', function (evt) {

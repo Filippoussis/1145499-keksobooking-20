@@ -2,6 +2,13 @@
 
 window.data = (function () {
 
+  var Position = {
+    MIN_X: 0,
+    MAX_X: 1200,
+    MIN_Y: 130,
+    MAX_Y: 630,
+  };
+
   var numberSeriesOfAds = window.util.getArrayNaturalNumbers(window.mocks.Ads.MIN, window.mocks.Ads.MAX);
 
   /**
@@ -9,8 +16,8 @@ window.data = (function () {
    * @return {object} возвращает карточку объявления в виде объекта с заданными полями
    */
   var generateDataAd = function () {
-    var positionX = window.util.getRandomBetween(window.mocks.Position.MIN_X, window.mocks.Position.MAX_X);
-    var positionY = window.util.getRandomBetween(window.mocks.Position.MIN_Y, window.mocks.Position.MAX_Y);
+    var positionX = window.util.getRandomBetween(Position.MIN_X, Position.MAX_X);
+    var positionY = window.util.getRandomBetween(Position.MIN_Y, Position.MAX_Y);
     return {
       author: {
         avatar: 'img/avatars/user0' + numberSeriesOfAds.pop() + '.png',
@@ -56,6 +63,12 @@ window.data = (function () {
       'flat': '1000',
       'house': '5000',
       'palace': '10000',
+    },
+    PinSize: {
+      MAIN_WIDTH: 65,
+      MAIN_HEIGHT: 65,
+      SIMILAR_WIDTH: 50,
+      SIMILAR_HEIGHT: 70,
     },
   };
 

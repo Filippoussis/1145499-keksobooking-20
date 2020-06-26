@@ -73,20 +73,6 @@ window.mocks = (function () {
       'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
     ],
 
-    Position: {
-      MIN_X: 0,
-      MAX_X: 1200,
-      MIN_Y: 130,
-      MAX_Y: 630,
-    },
-
-    PinSize: {
-      MAIN_WIDTH: 65,
-      MAIN_HEIGHT: 65,
-      SIMILAR_WIDTH: 50,
-      SIMILAR_HEIGHT: 70,
-    },
-
   };
 
 })();
