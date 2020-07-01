@@ -24,9 +24,9 @@
   };
 
   /**
-    * рендер меток объявлений на странице
-    * @param {Array} ads - массив объектов карточек объявлений
-    */
+   * рендер меток объявлений на странице
+   * @param {Array} ads - массив объектов карточек объявлений
+   */
   var renderPins = function (ads) {
     var mapPins = document.querySelector('.map__pins');
     var pinFragment = document.createDocumentFragment();

@@ -23,8 +23,8 @@
   });
 
   /**
-    * добавляет обработчик событий на поле выбора времени заезда/выезда
-    */
+   * добавляет обработчик событий на поле выбора времени заезда/выезда
+   */
   var changeTimeInOut = function () {
     var timeIn = mainForm.querySelector('#timein');
     var timeOut = mainForm.querySelector('#timeout');
@@ -41,8 +41,8 @@
   changeTimeInOut();
 
   /**
-    * добавляет обработчик событий на поле выбора типа жилья
-    */
+   * добавляет обработчик событий на поле выбора типа жилья
+   */
   var changeMinPriceOnTypeHouse = function () {
     var typeHouse = mainForm.querySelector('#type');
     var minPriceHouse = mainForm.querySelector('#price');

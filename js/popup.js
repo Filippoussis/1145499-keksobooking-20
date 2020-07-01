@@ -3,8 +3,8 @@
 (function () {
 
   /**
-    * закрывает popup
-    */
+   * закрывает popup
+   */
   var closeCard = function () {
     var mapCard = document.querySelector('.map__card');
     mapCard.classList.add('hidden');
@@ -14,7 +14,7 @@
   /**
    * вызывает функцию при нажатии клавиши Enter
    * @param {Object} evt - объект хранит последнее событие
-  */
+   */
   var onCardEscPress = function (evt) {
     if (evt.key === 'Escape') {
       closeCard();
@@ -22,9 +22,9 @@
   };
 
   /**
-    * функция открытия/закрытия popup
-    * @param {Object} ad - объект карточки объявления
-    */
+   * функция открытия/закрытия popup
+   * @param {Object} ad - объект карточки объявления
+   */
   var openCard = function (ad) {
     var cardData = window.card.renderCard(ad);
     var mapCard = document.querySelector('.map__card');

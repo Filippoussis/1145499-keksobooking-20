@@ -20,10 +20,10 @@
   };
 
   /**
-    * отрисовка карточки объявления
-    * @param {object} ad - объект карточки объявления
-    * @return {HTMLElement} возвращает кастомизированный HTMLElement на основе склонированного шаблона
-    */
+   * отрисовка карточки объявления
+   * @param {object} ad - объект карточки объявления
+   * @return {HTMLElement} возвращает кастомизированный HTMLElement на основе склонированного шаблона
+   */
   var renderCard = function (ad) {
     var card = cardTemplate.cloneNode(true);
     card.querySelector('.popup__title').textContent = ad.offer.title;

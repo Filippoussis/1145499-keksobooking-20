@@ -38,10 +38,10 @@
   };
 
   /**
-  * массив случайной длины
-  * @param {array} array - исходный массив значений
-  * @return {array} массив случайной длины
-  */
+   * массив случайной длины
+   * @param {array} array - исходный массив значений
+   * @return {array} массив случайной длины
+   */
   var getRandomArray = function (array) {
     return array.slice(getRandomBetween(0, array.length - 1));
   };
