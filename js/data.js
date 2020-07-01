@@ -23,6 +23,13 @@
     'palace': '10000',
   };
 
+  var Rooms = {
+    '1': ['1'],
+    '2': ['1', '2'],
+    '3': ['1', '2', '3'],
+    '100': ['100'],
+  };
+
   var numberSeriesOfAds = window.util.getArrayNaturalNumbers(window.mocks.Ads.MIN, window.mocks.Ads.MAX);
 
   /**
@@ -74,6 +81,7 @@
     generateDataAds: generateDataAds(window.mocks.Ads.MAX),
     PinSize: PinSize,
     minPrice: minPrice,
+    Rooms: Rooms,
   };
 
 })();

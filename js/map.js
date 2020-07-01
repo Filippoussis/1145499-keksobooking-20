@@ -70,7 +70,7 @@
     * активирует карту
     */
   var activateMap = function () {
-    window.pin.renderPins(window.data.dataAds);
+    window.pin.renderPins(window.data.generateDataAds);
     activateForms(mainForm, mapFilter, true);
 
     // здесь реализую фунцию метки drag and drop
