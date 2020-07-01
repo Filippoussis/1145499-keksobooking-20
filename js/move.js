@@ -1,6 +1,6 @@
 'use strict';
 
-window.move = (function () {
+(function () {
 
   var map = document.querySelector('.map');
   var mainPin = map.querySelector('.map__pin--main');
@@ -47,10 +47,15 @@ window.move = (function () {
 
       mainPin.style.top = newY + 'px';
       mainPin.style.left = newX + 'px';
+
+      window.map.getFormAddressValue();
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
+
+      window.map.getFormAddressValue();
+
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };

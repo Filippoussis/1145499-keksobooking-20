@@ -1,6 +1,6 @@
 'use strict';
 
-window.pin = (function () {
+(function () {
 
   var pinTemplate = document.querySelector('#pin').content;
 
@@ -23,20 +23,21 @@ window.pin = (function () {
     return pin;
   };
 
-  return {
+  /**
+   * рендер меток объявлений на странице
+   * @param {Array} ads - массив объектов карточек объявлений
+   */
+  var renderPins = function (ads) {
+    var mapPins = document.querySelector('.map__pins');
+    var pinFragment = document.createDocumentFragment();
+    ads.forEach(function (ad) {
+      pinFragment.append(renderPin(ad));
+    });
+    mapPins.append(pinFragment);
+  };
 
-    /**
-     * рендер меток объявлений на странице
-     * @param {Array} ads - массив объектов карточек объявлений
-     */
-    renderPins: function (ads) {
-      var mapPins = document.querySelector('.map__pins');
-      var pinFragment = document.createDocumentFragment();
-      ads.forEach(function (ad) {
-        pinFragment.append(renderPin(ad));
-      });
-      mapPins.append(pinFragment);
-    },
+  window.pin = {
+    renderPins: renderPins,
   };
 
 })();

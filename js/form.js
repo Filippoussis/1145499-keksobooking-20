@@ -1,42 +1,30 @@
 'use strict';
 
-window.form = (function () {
+(function () {
 
   var mainForm = document.querySelector('.ad-form');
   var numberRooms = mainForm.querySelector('#room_number');
   var capacity = mainForm.querySelector('#capacity');
 
   numberRooms.addEventListener('change', function () {
-    capacity.setCustomValidity('');
-    if (Number(numberRooms.value) < Number(capacity.value)) {
-      numberRooms.setCustomValidity('Количество комнат должно быть больше или равно количеству гостей');
-    } else if (Number(numberRooms.value) === 100 && Number(capacity.value) !== 0) {
-      numberRooms.setCustomValidity('100 комнат не предназначены для гостей');
-    } else if (Number(numberRooms.value) !== 100 && Number(capacity.value) === 0) {
-      numberRooms.setCustomValidity('Комнаты предназначены только для гостей');
-    } else {
-      numberRooms.setCustomValidity('');
+    numberRooms.setCustomValidity('');
+    if (!window.data.Rooms[numberRooms.value].includes(capacity.value)) {
+      numberRooms.setCustomValidity('Количество комнат должно быть больше или равно количеству гостей, а 100 комнат - не для гостей');
     }
     numberRooms.reportValidity();
   });
 
   capacity.addEventListener('change', function () {
-    numberRooms.setCustomValidity('');
-    if (Number(capacity.value) > Number(numberRooms.value)) {
-      capacity.setCustomValidity('Количество гостей должно быть меньше или равно количеству комнат');
-    } else if (Number(capacity.value) === 0 && Number(numberRooms.value) !== 100) {
-      capacity.setCustomValidity('Не для гостей предназначены 100 комнат');
-    } else if (Number(capacity.value) !== 0 && Number(numberRooms.value) === 100) {
-      capacity.setCustomValidity('Гостям не предназначены 100 комнат');
-    } else {
-      capacity.setCustomValidity('');
+    capacity.setCustomValidity('');
+    if (!window.data.Rooms[numberRooms.value].includes(capacity.value)) {
+      capacity.setCustomValidity('Количество гостей должно быть меньше или равно количеству комнат, а не гостям - 100 комнат');
     }
     capacity.reportValidity();
   });
 
   /**
-    * добавляет обработчик событий на поле выбора времени заезда/выезда
-    */
+   * добавляет обработчик событий на поле выбора времени заезда/выезда
+   */
   var changeTimeInOut = function () {
     var timeIn = mainForm.querySelector('#timein');
     var timeOut = mainForm.querySelector('#timeout');
@@ -53,8 +41,8 @@ window.form = (function () {
   changeTimeInOut();
 
   /**
-    * добавляет обработчик событий на поле выбора типа жилья
-    */
+   * добавляет обработчик событий на поле выбора типа жилья
+   */
   var changeMinPriceOnTypeHouse = function () {
     var typeHouse = mainForm.querySelector('#type');
     var minPriceHouse = mainForm.querySelector('#price');
