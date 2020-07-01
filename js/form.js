@@ -1,6 +1,6 @@
 'use strict';
 
-window.form = (function () {
+(function () {
 
   var mainForm = document.querySelector('.ad-form');
   var numberRooms = mainForm.querySelector('#room_number');

@@ -1,6 +1,6 @@
 'use strict';
 
-window.popup = (function () {
+(function () {
 
   /**
     * закрывает popup
@@ -21,30 +21,30 @@ window.popup = (function () {
     }
   };
 
-  return {
+  /**
+    * функция открытия/закрытия popup
+    * @param {Object} ad - объект карточки объявления
+    */
+  var openCard = function (ad) {
+    var cardData = window.card.renderCard(ad);
+    var mapCard = document.querySelector('.map__card');
+    var mapFiltersContainer = document.querySelector('.map__filters-container');
 
-    /**
-     * функция открытия/закрытия popup
-     * @param {Object} ad - объект карточки объявления
-     */
-    openCard: function (ad) {
-      var cardData = window.card.renderCard(ad);
-      var mapCard = document.querySelector('.map__card');
-      var mapFiltersContainer = document.querySelector('.map__filters-container');
+    if (!mapCard) {
+      mapFiltersContainer.before(cardData);
+    } else {
+      mapCard.replaceWith(cardData);
+    }
 
-      if (!mapCard) {
-        mapFiltersContainer.before(cardData);
-      } else {
-        mapCard.replaceWith(cardData);
-      }
+    var popupClose = document.querySelector('.popup__close');
+    popupClose.addEventListener('click', function () {
+      closeCard();
+    });
+    document.addEventListener('keydown', onCardEscPress);
+  };
 
-      var popupClose = document.querySelector('.popup__close');
-      popupClose.addEventListener('click', function () {
-        closeCard();
-      });
-      document.addEventListener('keydown', onCardEscPress);
-    },
-
+  window.popup = {
+    openCard: openCard,
   };
 
 })();

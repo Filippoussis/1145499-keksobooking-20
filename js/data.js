@@ -1,12 +1,26 @@
 'use strict';
 
-window.data = (function () {
+(function () {
 
   var Position = {
     MIN_X: 0,
     MAX_X: 1200,
     MIN_Y: 130,
     MAX_Y: 630,
+  };
+
+  var PinSize = {
+    MAIN_WIDTH: 65,
+    MAIN_HEIGHT: 65,
+    SIMILAR_WIDTH: 50,
+    SIMILAR_HEIGHT: 70,
+  };
+
+  var minPrice = {
+    'bungalo': '0',
+    'flat': '1000',
+    'house': '5000',
+    'palace': '10000',
   };
 
   var numberSeriesOfAds = window.util.getArrayNaturalNumbers(window.mocks.Ads.MIN, window.mocks.Ads.MAX);
@@ -56,20 +70,10 @@ window.data = (function () {
     return ads;
   };
 
-  return {
-    dataAds: generateDataAds(window.mocks.Ads.MAX),
-    minPrice: {
-      'bungalo': '0',
-      'flat': '1000',
-      'house': '5000',
-      'palace': '10000',
-    },
-    PinSize: {
-      MAIN_WIDTH: 65,
-      MAIN_HEIGHT: 65,
-      SIMILAR_WIDTH: 50,
-      SIMILAR_HEIGHT: 70,
-    },
+  window.data = {
+    generateDataAds: generateDataAds(window.mocks.Ads.MAX),
+    PinSize: PinSize,
+    minPrice: minPrice,
   };
 
 })();

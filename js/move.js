@@ -1,6 +1,6 @@
 'use strict';
 
-window.move = (function () {
+(function () {
 
   var map = document.querySelector('.map');
   var mainPin = map.querySelector('.map__pin--main');
