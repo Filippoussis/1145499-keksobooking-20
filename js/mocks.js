@@ -18,6 +18,13 @@
     'Тихая квартирка недалеко от метро',
   ];
 
+  var PositionOnMap = {
+    MIN_X: 0,
+    MAX_X: 1200,
+    MIN_Y: 130,
+    MAX_Y: 630,
+  };
+
   var Price = {
     MIN: 0,
     MAX: 1000000,
@@ -72,8 +79,8 @@
    * @return {object} возвращает карточку объявления в виде объекта с заданными полями
    */
   var generateDataAd = function () {
-    var positionX = window.util.getRandomBetween(window.data.PositionOnMap.MIN_X, window.data.PositionOnMap.MAX_X);
-    var positionY = window.util.getRandomBetween(window.data.PositionOnMap.MIN_Y, window.data.PositionOnMap.MAX_Y);
+    var positionX = window.util.getRandomBetween(PositionOnMap.MIN_X, PositionOnMap.MAX_X);
+    var positionY = window.util.getRandomBetween(PositionOnMap.MIN_Y, PositionOnMap.MAX_Y);
     return {
       author: {
         avatar: 'img/avatars/user0' + numberSeriesOfAds.pop() + '.png',

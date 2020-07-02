@@ -2,11 +2,9 @@
 
 (function () {
 
-  var PositionOnMap = {
-    MIN_X: 0,
-    MAX_X: 1200,
-    MIN_Y: 130,
-    MAX_Y: 630,
+  var StartPositionMainPin = {
+    TOP: '375px',
+    LEFT: '570px',
   };
 
   var PinSize = {
@@ -38,7 +36,7 @@
   };
 
   window.data = {
-    PositionOnMap: PositionOnMap,
+    StartPositionMainPin: StartPositionMainPin,
     PinSize: PinSize,
     minPrice: minPrice,
     TYPES: TYPES,
