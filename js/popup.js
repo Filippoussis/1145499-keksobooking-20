@@ -26,7 +26,7 @@
    * @param {Object} ad - объект карточки объявления
    */
   var openCard = function (ad) {
-    var cardData = window.card.renderCard(ad);
+    var cardData = window.card.render(ad);
     var mapCard = document.querySelector('.map__card');
     var mapFiltersContainer = document.querySelector('.map__filters-container');
 
