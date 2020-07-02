@@ -23,13 +23,6 @@
     MAX: 1000000,
   };
 
-  var TYPES = {
-    palace: 'Дворец',
-    flat: 'Квартира',
-    house: 'Дом',
-    bungalo: 'Бунгало',
-  };
-
   var Rooms = {
     MIN: 1,
     MAX: 7,
@@ -72,17 +65,55 @@
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
   ];
 
+  var numberSeriesOfAds = window.util.getArrayNaturalNumbers(Ads.MIN, Ads.MAX);
+
+  /**
+   * генерирует карточку объявления
+   * @return {object} возвращает карточку объявления в виде объекта с заданными полями
+   */
+  var generateDataAd = function () {
+    var positionX = window.util.getRandomBetween(window.data.PositionOnMap.MIN_X, window.data.PositionOnMap.MAX_X);
+    var positionY = window.util.getRandomBetween(window.data.PositionOnMap.MIN_Y, window.data.PositionOnMap.MAX_Y);
+    return {
+      author: {
+        avatar: 'img/avatars/user0' + numberSeriesOfAds.pop() + '.png',
+      },
+      offer: {
+        title: window.util.getRandomElementFromArray(TITLES),
+        address: '' + positionX + ', ' + positionY,
+        price: Math.round(window.util.getRandomBetween(Price.MIN, Price.MAX) / 100) * 100,
+        type: window.util.getRandomElementFromArray(Object.keys(window.data.TYPES)),
+        rooms: window.util.getRandomBetween(Rooms.MIN, Rooms.MAX),
+        guests: window.util.getRandomBetween(Guests.MIN, Guests.MAX),
+        checkin: window.util.getRandomElementFromArray(CHECKIN_OUTS),
+        checkout: window.util.getRandomElementFromArray(CHECKIN_OUTS),
+        features: window.util.getRandomArray(FEATURES),
+        description: window.util.getRandomElementFromArray(DESCRIPTIONS),
+        photos: window.util.getRandomArray(PHOTOS),
+      },
+      location: {
+        x: positionX,
+        y: positionY,
+      },
+    };
+  };
+
+  /**
+   * генерирует массив объектов карточек объявлений
+   * @param {number} numberOfAds - количество карточек объявлений
+   * @return {array} возвращает массив объектов карточек объявлений
+   */
+  var generateAds = function (numberOfAds) {
+    var ads = [];
+    for (var i = 0; i < numberOfAds; i++) {
+      ads.push(generateDataAd());
+    }
+
+    return ads;
+  };
+
   window.mocks = {
-    Ads: Ads,
-    TITLES: TITLES,
-    Price: Price,
-    TYPES: TYPES,
-    Rooms: Rooms,
-    Guests: Guests,
-    CHECKIN_OUTS: CHECKIN_OUTS,
-    FEATURES: FEATURES,
-    DESCRIPTIONS: DESCRIPTIONS,
-    PHOTOS: PHOTOS,
+    generateAds: generateAds(Ads.MAX),
   };
 
 })();

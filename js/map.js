@@ -72,7 +72,7 @@
    * активирует карту
    */
   var activateMap = function () {
-    window.pin.renderPins(window.data.generateDataAds);
+    window.backend.load(window.pin.render, window.backend.renderError);
     activateForms(mainForm, mapFilter, true);
     mainForm.classList.remove('ad-form--disabled');
     map.classList.remove('map--faded');
