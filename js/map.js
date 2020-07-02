@@ -15,6 +15,50 @@
     adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.PinSize.MAIN_HEIGHT);
   };
 
+  var popupFormSuccess = function () {
+    var successTemplate = document.querySelector('#success').content;
+    var success = successTemplate.cloneNode(true);
+    var main = document.querySelector('main');
+    main.append(success);
+
+    var successShow = document.querySelector('.success');
+
+    document.addEventListener('click', function () {
+      successShow.remove();
+    });
+
+    document.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape') {
+        successShow.remove();
+      }
+    });
+  };
+
+  var popupFormError = function () {
+    var successTemplate = document.querySelector('#error').content;
+    var error = successTemplate.cloneNode(true);
+    var main = document.querySelector('main');
+    main.append(error);
+
+    var errorShow = document.querySelector('.error');
+    var errorButton = errorShow.querySelector('.error__button');
+
+    document.addEventListener('click', function () {
+      errorShow.remove();
+    });
+
+    document.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape') {
+        errorShow.remove();
+      }
+    });
+
+    errorButton.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      errorShow.remove();
+    });
+  };
+
   /**
    * добавляет/удаляет атрибут детям элемента
    * @param {HTMLCollection} children - коллекция DOM элементов
@@ -32,21 +76,15 @@
 
   /**
    * активирует/деактивирует элементы форм
-   * @param {HTMLElement} form - DOM элемент
-   * @param {HTMLElement} filter - DOM элемент
+   * @param {HTMLElement} anyForm - DOM элемент
    * @param {Boolean} isDisabled - флаг, принимающий значение true или false
    */
-  var activateForms = function (form, filter, isDisabled) {
-    if (!isDisabled) {
-      toggleAttributeOnChildren(form.children, true);
-      toggleAttributeOnChildren(filter.children, true);
-    } else {
-      toggleAttributeOnChildren(form.children, false);
-      toggleAttributeOnChildren(filter.children, false);
-    }
+  var activateForms = function (anyForm, isDisabled) {
+    toggleAttributeOnChildren(anyForm, isDisabled);
   };
 
-  activateForms(mainForm, mapFilter, false);
+  activateForms(mainForm, true);
+  activateForms(mapFilter, true);
 
   /**
    * вызывает функцию при нажатии клавиши Enter
@@ -73,16 +111,48 @@
    */
   var activateMap = function () {
     window.backend.load(window.pin.render, window.backend.renderError);
-    activateForms(mainForm, mapFilter, true);
+    activateForms(mainForm, false);
+    activateForms(mapFilter, false);
     mainForm.classList.remove('ad-form--disabled');
     map.classList.remove('map--faded');
+  };
 
-    mainPin.removeEventListener('mousedown', onMainPinGeneralButtonPress);
-    mainPin.removeEventListener('keydown', onMainPinEnterPress);
+  /**
+   * активирует карту
+   */
+  var deActivateMap = function () {
+    mainForm.reset();
+    document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (pin) {
+      pin.remove();
+    });
+    if (document.querySelector('.map__card')) {
+      document.querySelector('.map__card').remove();
+    }
+    mainPin.style.top = window.data.StartPositionMainPin.TOP;
+    mainPin.style.left = window.data.StartPositionMainPin.LEFT;
+    getFormAddressValue();
+    activateForms(mainForm, true);
+    activateForms(mapFilter, true);
+    mainForm.classList.add('ad-form--disabled');
+    map.classList.add('map--faded');
   };
 
   mainPin.addEventListener('mousedown', onMainPinGeneralButtonPress);
   mainPin.addEventListener('keydown', onMainPinEnterPress);
+
+  var reset = mainForm.querySelector('.ad-form__reset');
+  reset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    deActivateMap();
+  });
+
+  mainForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(mainForm), function () {
+      deActivateMap();
+      popupFormSuccess();
+    }, popupFormError);
+    evt.preventDefault();
+  });
 
   window.map = {
     getFormAddressValue: getFormAddressValue,
