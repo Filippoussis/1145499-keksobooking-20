@@ -17,6 +17,13 @@
     SIMILAR_HEIGHT: 70,
   };
 
+  var LimitValuePositionPinOnMap = {
+    MIN_X: 0,
+    MAX_X: 1200,
+    MIN_Y: 130,
+    MAX_Y: 630,
+  };
+
   var minPrice = {
     'bungalo': '0',
     'flat': '1000',
@@ -42,6 +49,7 @@
     MAX_NUMBER_PINS: MAX_NUMBER_PINS,
     StartPositionMainPin: StartPositionMainPin,
     PinSize: PinSize,
+    LimitValuePositionPinOnMap: LimitValuePositionPinOnMap,
     minPrice: minPrice,
     TYPES: TYPES,
     Rooms: Rooms,
