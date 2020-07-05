@@ -17,7 +17,7 @@
     pin.querySelector('.map__pin img').alt = ad.offer.title;
     pin.querySelector('.map__pin').addEventListener('click', function (evt) {
       evt.preventDefault();
-      window.popup.openCard(ad);
+      window.popup.open(ad);
     });
 
     return pin;
