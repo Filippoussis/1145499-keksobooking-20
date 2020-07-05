@@ -44,7 +44,7 @@
   };
 
   window.popup = {
-    openCard: openCard,
+    open: openCard,
   };
 
 })();

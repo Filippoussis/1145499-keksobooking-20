@@ -3,57 +3,117 @@
 (function () {
 
   var mainForm = document.querySelector('.ad-form');
-  var numberRooms = mainForm.querySelector('#room_number');
-  var capacity = mainForm.querySelector('#capacity');
+  var mainPin = document.querySelector('.map__pin--main');
 
-  numberRooms.addEventListener('change', function () {
-    numberRooms.setCustomValidity('');
-    if (!window.data.Rooms[numberRooms.value].includes(capacity.value)) {
-      numberRooms.setCustomValidity('Количество комнат должно быть больше или равно количеству гостей, а 100 комнат - не для гостей');
-    }
-    numberRooms.reportValidity();
-  });
-
-  capacity.addEventListener('change', function () {
-    capacity.setCustomValidity('');
-    if (!window.data.Rooms[numberRooms.value].includes(capacity.value)) {
-      capacity.setCustomValidity('Количество гостей должно быть меньше или равно количеству комнат, а не гостям - 100 комнат');
-    }
-    capacity.reportValidity();
-  });
+  var adFormAddress = mainForm.querySelector('#address');
 
   /**
-   * добавляет обработчик событий на поле выбора времени заезда/выезда
+   * получает стартовое значение координат Главного пина
    */
-  var changeTimeInOut = function () {
-    var timeIn = mainForm.querySelector('#timein');
-    var timeOut = mainForm.querySelector('#timeout');
+  var getStartValueAddress = function () {
+    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.PinSize.MAIN_HEIGHT / 2);
+  };
 
-    timeIn.addEventListener('change', function () {
-      timeOut.value = timeIn.value;
+  /**
+   * получает текущее значение координат Главного пина
+   */
+  var getCurrentValueAddress = function () {
+    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.totalHeightMainPin);
+  };
+
+  /**
+   * функция появления и скрытия сообщения об Успехе при отправке формы на сервер
+   */
+  var popupFormSuccess = function () {
+    var successTemplate = document.querySelector('#success').content;
+    var success = successTemplate.cloneNode(true);
+    var main = document.querySelector('main');
+    main.append(success);
+
+    var successShow = document.querySelector('.success');
+
+    document.addEventListener('click', function () {
+      successShow.remove();
     });
 
-    timeOut.addEventListener('change', function () {
-      timeIn.value = timeOut.value;
+    document.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape') {
+        successShow.remove();
+      }
     });
   };
 
-  changeTimeInOut();
-
   /**
-   * добавляет обработчик событий на поле выбора типа жилья
+   * функция появления и скрытия сообщения об Ошибке при отправке формы на сервер
    */
-  var changeMinPriceOnTypeHouse = function () {
-    var typeHouse = mainForm.querySelector('#type');
-    var minPriceHouse = mainForm.querySelector('#price');
+  var popupFormError = function () {
+    var successTemplate = document.querySelector('#error').content;
+    var error = successTemplate.cloneNode(true);
+    var main = document.querySelector('main');
+    main.append(error);
 
-    typeHouse.addEventListener('change', function () {
-      var minPriceValue = window.data.minPrice[typeHouse.value];
-      minPriceHouse.min = minPriceValue;
-      minPriceHouse.placeholder = minPriceValue;
+    var errorShow = document.querySelector('.error');
+    var errorButton = errorShow.querySelector('.error__button');
+
+    document.addEventListener('click', function () {
+      errorShow.remove();
+    });
+
+    document.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape') {
+        errorShow.remove();
+      }
+    });
+
+    errorButton.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      errorShow.remove();
     });
   };
 
-  changeMinPriceOnTypeHouse();
+  /**
+   * добавляет/удаляет атрибут детям элемента
+   * @param {HTMLCollection} children - коллекция DOM элементов
+   * @param {Boolean} isAdd - флаг, принимающий значение true или false
+   */
+  var toggleAttributeOnChildren = function (children, isAdd) {
+    Array.from(children).forEach(function (child) {
+      if (isAdd) {
+        child.removeAttribute('disabled');
+      } else {
+        child.setAttribute('disabled', 'disabled');
+      }
+    });
+  };
+
+  /**
+   * активирует/деактивирует элементы формы
+   * @param {HTMLElement} anyForm - DOM элемент
+   * @param {Boolean} isDisabled - флаг, принимающий значение true или false
+   */
+  var activateForm = function (anyForm, isDisabled) {
+    toggleAttributeOnChildren(anyForm, isDisabled);
+  };
+
+  var reset = mainForm.querySelector('.ad-form__reset');
+  reset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.map.deActivate();
+  });
+
+  mainForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(mainForm), function () {
+      window.map.deActivate();
+      popupFormSuccess();
+    }, popupFormError);
+    evt.preventDefault();
+  });
+
+  window.form = {
+    startValueAddress: getStartValueAddress,
+    currentValueAddress: getCurrentValueAddress,
+    activate: activateForm,
+  };
+
 
 })();

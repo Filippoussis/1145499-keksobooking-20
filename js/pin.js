@@ -17,7 +17,7 @@
     pin.querySelector('.map__pin img').alt = ad.offer.title;
     pin.querySelector('.map__pin').addEventListener('click', function (evt) {
       evt.preventDefault();
-      window.popup.openCard(ad);
+      window.popup.open(ad);
     });
 
     return pin;
@@ -30,14 +30,33 @@
   var renderPins = function (ads) {
     var mapPins = document.querySelector('.map__pins');
     var pinFragment = document.createDocumentFragment();
-    ads.forEach(function (ad) {
-      pinFragment.append(renderPin(ad));
-    });
+
+    var takeNumber = ads.length > window.data.MAX_NUMBER_PINS ? window.data.MAX_NUMBER_PINS : ads.length;
+
+    clearPins();
+    window.card.clear();
+
+    for (var i = 0; i < takeNumber; i++) {
+      pinFragment.append(renderPin(ads[i]));
+    }
+
     mapPins.append(pinFragment);
+  };
+
+  /**
+   * удаление со страницы пинов за исключением главного
+   */
+  var clearPins = function () {
+    if (document.querySelectorAll('.map__pin:not(.map__pin--main)')) {
+      document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (pin) {
+        pin.remove();
+      });
+    }
   };
 
   window.pin = {
     render: renderPins,
+    clear: clearPins,
   };
 
 })();

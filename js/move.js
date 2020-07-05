@@ -5,6 +5,15 @@
   var map = document.querySelector('.map');
   var mainPin = map.querySelector('.map__pin--main');
 
+  /**
+   * перемещает Главный пин в стартовое положение
+   */
+  var moveStartPositionMainPin = function () {
+    mainPin.style.top = window.data.StartPositionMainPin.TOP;
+    mainPin.style.left = window.data.StartPositionMainPin.LEFT;
+    mainPin.style.transform = window.data.StartPositionMainPin.TRANSFORM;
+  };
+
   mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -37,24 +46,24 @@
         newX = map.offsetWidth - window.data.PinSize.MAIN_WIDTH;
       }
 
-      if (newY < 0) {
-        newY = 0;
+      if (newY < window.data.LimitValuePositionPinOnMap.MIN_Y - window.data.totalHeightMainPin) {
+        newY = window.data.LimitValuePositionPinOnMap.MIN_Y - window.data.totalHeightMainPin;
       }
 
-      if (newY > map.offsetHeight - window.data.PinSize.MAIN_HEIGHT) {
-        newY = map.offsetHeight - window.data.PinSize.MAIN_HEIGHT;
+      if (newY > window.data.LimitValuePositionPinOnMap.MAX_Y - window.data.totalHeightMainPin) {
+        newY = window.data.LimitValuePositionPinOnMap.MAX_Y - window.data.totalHeightMainPin;
       }
 
       mainPin.style.top = newY + 'px';
       mainPin.style.left = newX + 'px';
 
-      window.map.getFormAddressValue();
+      window.form.currentValueAddress();
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      window.map.getFormAddressValue();
+      window.form.currentValueAddress();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
@@ -63,5 +72,9 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  window.move = {
+    startPosition: moveStartPositionMainPin,
+  };
 
 })();
