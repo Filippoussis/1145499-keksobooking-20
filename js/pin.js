@@ -30,9 +30,21 @@
   var renderPins = function (ads) {
     var mapPins = document.querySelector('.map__pins');
     var pinFragment = document.createDocumentFragment();
-    ads.forEach(function (ad) {
-      pinFragment.append(renderPin(ad));
+
+    var takeNumber = ads.length > window.data.MAX_NUMBER_PINS ? window.data.MAX_NUMBER_PINS : ads.length;
+
+    document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (pin) {
+      pin.remove();
     });
+
+    if (document.querySelector('.map__card')) {
+      document.querySelector('.map__card').remove();
+    }
+
+    for (var i = 0; i < takeNumber; i++) {
+      pinFragment.append(renderPin(ads[i]));
+    }
+
     mapPins.append(pinFragment);
   };
 

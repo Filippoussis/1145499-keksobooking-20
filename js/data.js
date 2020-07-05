@@ -2,6 +2,8 @@
 
 (function () {
 
+  var MAX_NUMBER_PINS = 5;
+
   var StartPositionMainPin = {
     TOP: '375px',
     LEFT: '570px',
@@ -10,6 +12,7 @@
   var PinSize = {
     MAIN_WIDTH: 65,
     MAIN_HEIGHT: 65,
+    MAIN_TAIL_HEIGHT: 22,
     SIMILAR_WIDTH: 50,
     SIMILAR_HEIGHT: 70,
   };
@@ -36,6 +39,7 @@
   };
 
   window.data = {
+    MAX_NUMBER_PINS: MAX_NUMBER_PINS,
     StartPositionMainPin: StartPositionMainPin,
     PinSize: PinSize,
     minPrice: minPrice,

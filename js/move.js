@@ -37,12 +37,12 @@
         newX = map.offsetWidth - window.data.PinSize.MAIN_WIDTH;
       }
 
-      if (newY < 0) {
-        newY = 0;
+      if (newY < window.data.PinSize.MAIN_HEIGHT) {
+        newY = window.data.PinSize.MAIN_HEIGHT;
       }
 
-      if (newY > map.offsetHeight - window.data.PinSize.MAIN_HEIGHT) {
-        newY = map.offsetHeight - window.data.PinSize.MAIN_HEIGHT;
+      if (newY > 630 - window.data.PinSize.MAIN_HEIGHT) {
+        newY = 630 - window.data.PinSize.MAIN_HEIGHT;
       }
 
       mainPin.style.top = newY + 'px';

@@ -110,7 +110,7 @@
    * активирует карту
    */
   var activateMap = function () {
-    window.backend.load(window.pin.render, window.backend.renderError);
+    window.main.getPins();
     activateForms(mainForm, false);
     activateForms(mapFilter, false);
     mainForm.classList.remove('ad-form--disabled');
