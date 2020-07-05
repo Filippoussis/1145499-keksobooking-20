@@ -122,12 +122,8 @@
    */
   var deActivateMap = function () {
     mainForm.reset();
-    document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (pin) {
-      pin.remove();
-    });
-    if (document.querySelector('.map__card')) {
-      document.querySelector('.map__card').remove();
-    }
+    window.pin.clear();
+    window.card.clear();
     mainPin.style.top = window.data.StartPositionMainPin.TOP;
     mainPin.style.left = window.data.StartPositionMainPin.LEFT;
     getFormAddressValue();
