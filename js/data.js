@@ -10,12 +10,14 @@
   };
 
   var PinSize = {
-    MAIN_WIDTH: 65,
-    MAIN_HEIGHT: 65,
+    MAIN_WIDTH: 62,
+    MAIN_HEIGHT: 62,
     MAIN_TAIL_HEIGHT: 22,
     SIMILAR_WIDTH: 50,
     SIMILAR_HEIGHT: 70,
   };
+
+  var totalHeightMainPin = PinSize.MAIN_HEIGHT + PinSize.MAIN_TAIL_HEIGHT;
 
   var LimitValuePositionPinOnMap = {
     MIN_X: 0,
@@ -49,6 +51,7 @@
     MAX_NUMBER_PINS: MAX_NUMBER_PINS,
     StartPositionMainPin: StartPositionMainPin,
     PinSize: PinSize,
+    totalHeightMainPin: totalHeightMainPin,
     LimitValuePositionPinOnMap: LimitValuePositionPinOnMap,
     minPrice: minPrice,
     TYPES: TYPES,

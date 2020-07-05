@@ -9,10 +9,10 @@
   var mapFilter = document.querySelector('.map__filters');
 
   var adFormAddress = mainForm.querySelector('#address');
-  adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.PinSize.MAIN_HEIGHT / 2);
+  adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.totalHeightMainPin / 2);
 
   var getFormAddressValue = function () {
-    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.PinSize.MAIN_HEIGHT);
+    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.totalHeightMainPin);
   };
 
   var popupFormSuccess = function () {

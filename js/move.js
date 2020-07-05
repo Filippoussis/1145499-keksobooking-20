@@ -37,12 +37,12 @@
         newX = map.offsetWidth - window.data.PinSize.MAIN_WIDTH;
       }
 
-      if (newY < window.data.PinSize.MAIN_HEIGHT) {
-        newY = window.data.PinSize.MAIN_HEIGHT;
+      if (newY < window.data.LimitValuePositionPinOnMap.MIN_Y - window.data.totalHeightMainPin) {
+        newY = window.data.LimitValuePositionPinOnMap.MIN_Y - window.data.totalHeightMainPin;
       }
 
-      if (newY > 630 - window.data.PinSize.MAIN_HEIGHT) {
-        newY = 630 - window.data.PinSize.MAIN_HEIGHT;
+      if (newY > window.data.LimitValuePositionPinOnMap.MAX_Y - window.data.totalHeightMainPin) {
+        newY = window.data.LimitValuePositionPinOnMap.MAX_Y - window.data.totalHeightMainPin;
       }
 
       mainPin.style.top = newY + 'px';
