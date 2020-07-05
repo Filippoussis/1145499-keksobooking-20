@@ -5,8 +5,9 @@
   var MAX_NUMBER_PINS = 5;
 
   var StartPositionMainPin = {
-    TOP: '375px',
-    LEFT: '570px',
+    TOP: '50%',
+    LEFT: '50%',
+    TRANSFORM: 'translate(-50%)'
   };
 
   var PinSize = {
