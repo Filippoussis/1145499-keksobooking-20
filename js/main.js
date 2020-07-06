@@ -5,8 +5,7 @@
   var mainForm = document.querySelector('.ad-form');
   var mapFilter = document.querySelector('.map__filters');
 
-  window.move.startPosition();
-  window.form.startValueAddress();
+  window.form.setStartValueAddress();
 
   window.form.activate(mainForm, false);
   window.form.activate(mapFilter, false);
