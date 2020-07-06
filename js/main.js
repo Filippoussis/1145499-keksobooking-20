@@ -10,9 +10,9 @@
   window.form.activate(mainForm, false);
   window.form.activate(mapFilter, false);
 
-  window.valid.roomsAndGuests();
-  window.valid.timeInOut();
-  window.valid.minPriceOnTypeHouse();
+  window.valid.checkRoomsAndGuests();
+  window.valid.checkTimeInOut();
+  window.valid.checkMinPriceOnTypeHouse();
 
   var getPins = function () {
     window.backend.load(window.load.success, window.error.on);

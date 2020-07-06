@@ -9,7 +9,7 @@
   /**
    * валидация формы по полям Количество комнат / Количество гостей
    */
-  var validationRoomsAndGuests = function () {
+  var checkRoomsAndGuests = function () {
     numberRooms.addEventListener('change', function () {
       numberRooms.setCustomValidity('');
       if (!window.data.Rooms[numberRooms.value].includes(numberGuests.value)) {
@@ -30,7 +30,7 @@
   /**
    * валидация формы по полям Время заезда / выезда
    */
-  var validationTimeInOut = function () {
+  var checkTimeInOut = function () {
     var timeIn = mainForm.querySelector('#timein');
     var timeOut = mainForm.querySelector('#timeout');
 
@@ -46,7 +46,7 @@
   /**
    * валидация формы по полям Тип жилья / Минимальная стоимость
    */
-  var validationMinPriceOnTypeHouse = function () {
+  var checkMinPriceOnTypeHouse = function () {
     var typeHouse = mainForm.querySelector('#type');
     var minPriceHouse = mainForm.querySelector('#price');
 
@@ -58,9 +58,9 @@
   };
 
   window.valid = {
-    roomsAndGuests: validationRoomsAndGuests,
-    timeInOut: validationTimeInOut,
-    minPriceOnTypeHouse: validationMinPriceOnTypeHouse,
+    checkRoomsAndGuests: checkRoomsAndGuests,
+    checkTimeInOut: checkTimeInOut,
+    checkMinPriceOnTypeHouse: checkMinPriceOnTypeHouse,
   };
 
 })();

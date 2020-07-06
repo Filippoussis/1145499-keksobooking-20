@@ -24,7 +24,7 @@
   /**
    * функция появления и скрытия сообщения об Успехе при отправке формы на сервер
    */
-  var popupFormSuccess = function () {
+  var showPopupFormOnSuccess = function () {
     var successTemplate = document.querySelector('#success').content;
     var success = successTemplate.cloneNode(true);
     var main = document.querySelector('main');
@@ -46,7 +46,7 @@
   /**
    * функция появления и скрытия сообщения об Ошибке при отправке формы на сервер
    */
-  var popupFormError = function () {
+  var showPopupFormOnError = function () {
     var successTemplate = document.querySelector('#error').content;
     var error = successTemplate.cloneNode(true);
     var main = document.querySelector('main');
@@ -95,8 +95,8 @@
   mainForm.addEventListener('submit', function (evt) {
     window.backend.save(new FormData(mainForm), function () {
       window.map.deActivate();
-      popupFormSuccess();
-    }, popupFormError);
+      showPopupFormOnSuccess();
+    }, showPopupFormOnError);
     evt.preventDefault();
   });
 
@@ -105,6 +105,5 @@
     setCurrentValueAddress: setCurrentValueAddress,
     activate: activateForm,
   };
-
 
 })();
