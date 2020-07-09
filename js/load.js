@@ -16,9 +16,9 @@
   var housingPrice = document.querySelector('#housing-price');
   var housingFeatures = document.querySelector('#housing-features');
 
-  mapFilters.addEventListener('change', function () {
+  mapFilters.addEventListener('change', window.debounce(function () {
     updatePins();
-  });
+  }));
 
   /**
    * фильтрация пинов с последующей отрисовкой на странице пользователя
