@@ -2,24 +2,7 @@
 
 (function () {
 
-  var mainForm = document.querySelector('.ad-form');
-  var mainPin = document.querySelector('.map__pin--main');
-
-  var adFormAddress = mainForm.querySelector('#address');
-
-  /**
-   * записывает стартовое значение координат Главного пина
-   */
-  var setStartValueAddress = function () {
-    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.PinSize.MAIN_HEIGHT / 2);
-  };
-
-  /**
-   * записывает текущее значение координат Главного пина
-   */
-  var setCurrentValueAddress = function () {
-    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.totalHeightMainPin);
-  };
+  var MAIN_FORM = document.querySelector('.ad-form');
 
   /**
    * функция появления и скрытия сообщения об Успехе при отправке формы на сервер
@@ -86,14 +69,14 @@
     });
   };
 
-  var reset = mainForm.querySelector('.ad-form__reset');
+  var reset = MAIN_FORM.querySelector('.ad-form__reset');
   reset.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.map.deActivate();
   });
 
-  mainForm.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(mainForm), function () {
+  MAIN_FORM.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(MAIN_FORM), function () {
       window.map.deActivate();
       showPopupFormOnSuccess();
     }, showPopupFormOnError);
@@ -101,8 +84,6 @@
   });
 
   window.form = {
-    setStartValueAddress: setStartValueAddress,
-    setCurrentValueAddress: setCurrentValueAddress,
     activate: activateForm,
   };
 

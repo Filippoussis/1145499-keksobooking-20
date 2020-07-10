@@ -13,8 +13,6 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  window.error = {
-    on: onError,
-  };
+  window.error = onError;
 
 })();

@@ -2,11 +2,10 @@
 
 (function () {
 
-  var map = document.querySelector('.map');
-  var mainPin = map.querySelector('.map__pin--main');
-
-  var mainForm = document.querySelector('.ad-form');
-  var mapFilter = document.querySelector('.map__filters');
+  var MAP = document.querySelector('.map');
+  var MAIN_PIN = MAP.querySelector('.map__pin--main');
+  var FILTERS = MAP.querySelector('.map__filters');
+  var MAIN_FORM = document.querySelector('.ad-form');
 
   /**
    * вызывает функцию активации карты при нажатии клавиши Enter
@@ -33,31 +32,31 @@
    */
   var activateMap = function () {
     window.main.getPins();
-    window.form.activate(mainForm, true);
-    window.form.activate(mapFilter, true);
-    mainForm.classList.remove('ad-form--disabled');
-    map.classList.remove('map--faded');
-    mainPin.removeEventListener('mousedown', onMainPinGeneralButtonPress);
-    mainPin.removeEventListener('keydown', onMainPinEnterPress);
+    window.form.activate(MAIN_FORM, true);
+    window.form.activate(FILTERS, true);
+    MAIN_FORM.classList.remove('ad-form--disabled');
+    MAP.classList.remove('map--faded');
+    MAIN_PIN.removeEventListener('mousedown', onMainPinGeneralButtonPress);
+    MAIN_PIN.removeEventListener('keydown', onMainPinEnterPress);
   };
 
   /**
    * деактивирует карту
    */
   var deActivateMap = function () {
-    mainForm.reset();
+    MAIN_FORM.reset();
+    FILTERS.reset();
     window.pin.clear();
     window.card.clear();
     window.move.setStartPosition();
-    window.form.setStartValueAddress();
-    window.form.activate(mainForm, false);
-    window.form.activate(mapFilter, false);
-    mainForm.classList.add('ad-form--disabled');
-    map.classList.add('map--faded');
+    window.move.setStartValueAddress();
+    window.form.activate(MAIN_FORM, false);
+    window.form.activate(FILTERS, false);
+    MAIN_FORM.classList.add('ad-form--disabled');
+    MAP.classList.add('map--faded');
+    MAIN_PIN.addEventListener('mousedown', onMainPinGeneralButtonPress);
+    MAIN_PIN.addEventListener('keydown', onMainPinEnterPress);
   };
-
-  mainPin.addEventListener('mousedown', onMainPinGeneralButtonPress);
-  mainPin.addEventListener('keydown', onMainPinEnterPress);
 
   window.map = {
     deActivate: deActivateMap,

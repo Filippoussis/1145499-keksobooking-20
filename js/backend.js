@@ -9,7 +9,7 @@
 
   var TIMEOUT_IN_MS = 10000;
 
-  var xhrTemplate = function (xhr, onSuccess, onError) {
+  var setXhr = function (xhr, onSuccess, onError) {
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
@@ -49,7 +49,7 @@
   var load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
 
-    xhrTemplate(xhr, onSuccess, onError);
+    setXhr(xhr, onSuccess, onError);
 
     xhr.open('GET', Url.LOAD);
     xhr.send();
@@ -58,7 +58,7 @@
   var save = function (data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
 
-    xhrTemplate(xhr, onSuccess, onError);
+    setXhr(xhr, onSuccess, onError);
 
     xhr.open('POST', Url.SAVE);
     xhr.send(data);

@@ -2,7 +2,15 @@
 
 (function () {
 
-  var pinTemplate = document.querySelector('#pin').content;
+  var MAX_NUMBER_PINS = 5;
+
+  var MAP_PINS = document.querySelector('.map__pins');
+  var PIN_TEMPLATE = document.querySelector('#pin').content;
+
+  var SimilarPinSize = {
+    WIDTH: 50,
+    HEIGHT: 70,
+  };
 
   /**
    * рендер метки объявления
@@ -10,9 +18,9 @@
    * @return {HTMLElement} возвращает кастомизированный HTMLElement на основе склонированного шаблона
    */
   var renderPin = function (ad) {
-    var pin = pinTemplate.cloneNode(true);
-    pin.querySelector('.map__pin').style.left = ad.location.x - window.data.PinSize.SIMILAR_WIDTH / 2 + 'px';
-    pin.querySelector('.map__pin').style.top = ad.location.y - window.data.PinSize.SIMILAR_HEIGHT + 'px';
+    var pin = PIN_TEMPLATE.cloneNode(true);
+    pin.querySelector('.map__pin').style.left = ad.location.x - SimilarPinSize.WIDTH / 2 + 'px';
+    pin.querySelector('.map__pin').style.top = ad.location.y - SimilarPinSize.HEIGHT + 'px';
     pin.querySelector('.map__pin img').src = ad.author.avatar;
     pin.querySelector('.map__pin img').alt = ad.offer.title;
     pin.querySelector('.map__pin').addEventListener('click', function (evt) {
@@ -32,16 +40,15 @@
     clearPins();
     window.card.clear();
 
-    var mapPins = document.querySelector('.map__pins');
     var pinFragment = document.createDocumentFragment();
 
-    var takeNumber = ads.length > window.data.MAX_NUMBER_PINS ? window.data.MAX_NUMBER_PINS : ads.length;
+    var numberPins = ads.length > MAX_NUMBER_PINS ? MAX_NUMBER_PINS : ads.length;
 
-    for (var i = 0; i < takeNumber; i++) {
+    for (var i = 0; i < numberPins; i++) {
       pinFragment.append(renderPin(ads[i]));
     }
 
-    mapPins.append(pinFragment);
+    MAP_PINS.append(pinFragment);
   };
 
   /**

@@ -2,20 +2,16 @@
 
 (function () {
 
-  var mainForm = document.querySelector('.ad-form');
-  var mapFilter = document.querySelector('.map__filters');
+  window.map.deActivate();
 
-  window.form.setStartValueAddress();
+  window.move.setStartValueAddress();
 
-  window.form.activate(mainForm, false);
-  window.form.activate(mapFilter, false);
-
-  window.valid.checkRoomsAndGuests();
-  window.valid.checkTimeInOut();
-  window.valid.checkMinPriceOnTypeHouse();
+  window.validity.checkRoomsAndGuests();
+  window.validity.checkTimeInOut();
+  window.validity.checkMinPriceOnTypeHouse();
 
   var getPins = function () {
-    window.backend.load(window.load.success, window.error.on);
+    window.backend.load(window.load, window.error);
   };
 
   window.main = {
