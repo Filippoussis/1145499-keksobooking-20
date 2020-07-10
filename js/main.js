@@ -11,7 +11,7 @@
   window.valid.checkMinPriceOnTypeHouse();
 
   var getPins = function () {
-    window.backend.load(window.load.success, window.error.on);
+    window.backend.load(window.load, window.error);
   };
 
   window.main = {
