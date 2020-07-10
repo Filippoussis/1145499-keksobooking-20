@@ -11,8 +11,6 @@
     window.pin.render(data);
   };
 
-  window.load = {
-    success: onSuccess,
-  };
+  window.load = onSuccess;
 
 })();
