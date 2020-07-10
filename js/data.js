@@ -2,8 +2,6 @@
 
 (function () {
 
-  var MAX_NUMBER_PINS = 5;
-
   var StartPositionMainPin = {
     TOP: '50%',
     LEFT: '50%',
@@ -35,7 +33,6 @@
   };
 
   window.data = {
-    MAX_NUMBER_PINS: MAX_NUMBER_PINS,
     StartPositionMainPin: StartPositionMainPin,
     PinSize: PinSize,
     totalHeightMainPin: totalHeightMainPin,
