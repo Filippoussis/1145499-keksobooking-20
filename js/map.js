@@ -37,6 +37,8 @@
     window.form.activate(mapFilter, true);
     mainForm.classList.remove('ad-form--disabled');
     map.classList.remove('map--faded');
+    mainPin.removeEventListener('mousedown', onMainPinGeneralButtonPress);
+    mainPin.removeEventListener('keydown', onMainPinEnterPress);
   };
 
   /**
@@ -46,8 +48,8 @@
     mainForm.reset();
     window.pin.clear();
     window.card.clear();
-    window.move.startPosition();
-    window.form.startValueAddress();
+    window.move.setStartPosition();
+    window.form.setStartValueAddress();
     window.form.activate(mainForm, false);
     window.form.activate(mapFilter, false);
     mainForm.classList.add('ad-form--disabled');

@@ -28,13 +28,14 @@
    * @param {Array} ads - массив объектов карточек объявлений
    */
   var renderPins = function (ads) {
+
+    clearPins();
+    window.card.clear();
+
     var mapPins = document.querySelector('.map__pins');
     var pinFragment = document.createDocumentFragment();
 
     var takeNumber = ads.length > window.data.MAX_NUMBER_PINS ? window.data.MAX_NUMBER_PINS : ads.length;
-
-    clearPins();
-    window.card.clear();
 
     for (var i = 0; i < takeNumber; i++) {
       pinFragment.append(renderPin(ads[i]));

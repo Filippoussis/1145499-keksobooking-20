@@ -8,7 +8,7 @@
   /**
    * перемещает Главный пин в стартовое положение
    */
-  var moveStartPositionMainPin = function () {
+  var setStartPositionMainPin = function () {
     mainPin.style.top = window.data.StartPositionMainPin.TOP;
     mainPin.style.left = window.data.StartPositionMainPin.LEFT;
     mainPin.style.transform = window.data.StartPositionMainPin.TRANSFORM;
@@ -38,12 +38,12 @@
       var newX = mainPin.offsetLeft - shift.x;
       var newY = mainPin.offsetTop - shift.y;
 
-      if (newX < 0) {
-        newX = 0;
+      if (newX < -window.data.PinSize.MAIN_WIDTH / 2) {
+        newX = -window.data.PinSize.MAIN_WIDTH / 2;
       }
 
-      if (newX > map.offsetWidth - window.data.PinSize.MAIN_WIDTH) {
-        newX = map.offsetWidth - window.data.PinSize.MAIN_WIDTH;
+      if (newX > map.offsetWidth - window.data.PinSize.MAIN_WIDTH / 2) {
+        newX = map.offsetWidth - window.data.PinSize.MAIN_WIDTH / 2;
       }
 
       if (newY < window.data.LimitValuePositionPinOnMap.MIN_Y - window.data.totalHeightMainPin) {
@@ -57,13 +57,13 @@
       mainPin.style.top = newY + 'px';
       mainPin.style.left = newX + 'px';
 
-      window.form.currentValueAddress();
+      window.form.setCurrentValueAddress();
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      window.form.currentValueAddress();
+      window.form.setCurrentValueAddress();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
@@ -74,7 +74,7 @@
   });
 
   window.move = {
-    startPosition: moveStartPositionMainPin,
+    setStartPosition: setStartPositionMainPin,
   };
 
 })();
