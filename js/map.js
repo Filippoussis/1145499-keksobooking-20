@@ -54,10 +54,9 @@
     window.form.activate(mapFilter, false);
     mainForm.classList.add('ad-form--disabled');
     map.classList.add('map--faded');
+    mainPin.addEventListener('mousedown', onMainPinGeneralButtonPress);
+    mainPin.addEventListener('keydown', onMainPinEnterPress);
   };
-
-  mainPin.addEventListener('mousedown', onMainPinGeneralButtonPress);
-  mainPin.addEventListener('keydown', onMainPinEnterPress);
 
   window.map = {
     deActivate: deActivateMap,
