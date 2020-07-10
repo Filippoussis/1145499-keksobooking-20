@@ -45,6 +45,7 @@
    */
   var deActivateMap = function () {
     MAIN_FORM.reset();
+    FILTERS.reset();
     window.pin.clear();
     window.card.clear();
     window.move.setStartPosition();

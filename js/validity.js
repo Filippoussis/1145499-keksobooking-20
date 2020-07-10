@@ -19,14 +19,14 @@
     PRICE: MAIN_FORM.querySelector('#price'),
   };
 
-  var ROOMS = {
+  var ROOMS_AND_GUESTS = {
     '1': ['1'],
     '2': ['1', '2'],
     '3': ['1', '2', '3'],
     '100': ['100'],
   };
 
-  var PRICES = {
+  var HOUSES_AND_PRICES = {
     'bungalo': '0',
     'flat': '1000',
     'house': '5000',
@@ -39,16 +39,20 @@
   var checkRoomsAndGuests = function () {
     Number.ROOMS.addEventListener('change', function () {
       Number.ROOMS.setCustomValidity('');
-      if (!ROOMS[Number.ROOMS.value].includes(Number.GUESTS.value)) {
+      if (!ROOMS_AND_GUESTS[Number.ROOMS.value].includes(Number.GUESTS.value)) {
         Number.ROOMS.setCustomValidity('Количество комнат должно быть больше или равно количеству гостей, а 100 комнат - не для гостей');
+      } else {
+        Number.GUESTS.setCustomValidity('');
       }
       Number.ROOMS.reportValidity();
     });
 
     Number.GUESTS.addEventListener('change', function () {
       Number.GUESTS.setCustomValidity('');
-      if (!ROOMS[Number.ROOMS.value].includes(Number.GUESTS.value)) {
+      if (!ROOMS_AND_GUESTS[Number.ROOMS.value].includes(Number.GUESTS.value)) {
         Number.GUESTS.setCustomValidity('Количество гостей должно быть меньше или равно количеству комнат, а не гостям - 100 комнат');
+      } else {
+        Number.ROOMS.setCustomValidity('');
       }
       Number.GUESTS.reportValidity();
     });
@@ -72,7 +76,7 @@
    */
   var checkMinPriceOnTypeHouse = function () {
     House.TYPE.addEventListener('change', function () {
-      var minPriceValue = PRICES[House.TYPE.value];
+      var minPriceValue = HOUSES_AND_PRICES[House.TYPE.value];
       House.PRICE.min = minPriceValue;
       House.PRICE.placeholder = minPriceValue;
     });
