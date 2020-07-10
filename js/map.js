@@ -49,7 +49,7 @@
     window.pin.clear();
     window.card.clear();
     window.move.setStartPosition();
-    window.form.setStartValueAddress();
+    window.move.setStartValueAddress();
     window.form.activate(mainForm, false);
     window.form.activate(mapFilter, false);
     mainForm.classList.add('ad-form--disabled');

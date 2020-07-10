@@ -7,6 +7,11 @@
   var MAP_PINS = document.querySelector('.map__pins');
   var PIN_TEMPLATE = document.querySelector('#pin').content;
 
+  var SimilarPinSize = {
+    WIDTH: 50,
+    HEIGHT: 70,
+  };
+
   /**
    * рендер метки объявления
    * @param {object} ad - объект карточки объявления
@@ -14,8 +19,8 @@
    */
   var renderPin = function (ad) {
     var pin = PIN_TEMPLATE.cloneNode(true);
-    pin.querySelector('.map__pin').style.left = ad.location.x - window.data.PinSize.SIMILAR_WIDTH / 2 + 'px';
-    pin.querySelector('.map__pin').style.top = ad.location.y - window.data.PinSize.SIMILAR_HEIGHT + 'px';
+    pin.querySelector('.map__pin').style.left = ad.location.x - SimilarPinSize.WIDTH / 2 + 'px';
+    pin.querySelector('.map__pin').style.top = ad.location.y - SimilarPinSize.HEIGHT + 'px';
     pin.querySelector('.map__pin img').src = ad.author.avatar;
     pin.querySelector('.map__pin img').alt = ad.offer.title;
     pin.querySelector('.map__pin').addEventListener('click', function (evt) {

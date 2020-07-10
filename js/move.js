@@ -19,15 +19,13 @@
     MAX_Y: 630,
   };
 
-  var PinSize = {
-    MAIN_WIDTH: 62,
-    MAIN_HEIGHT: 62,
-    MAIN_TAIL_HEIGHT: 22,
-    SIMILAR_WIDTH: 50,
-    SIMILAR_HEIGHT: 70,
+  var MainPinSize = {
+    WIDTH: 62,
+    HEIGHT: 62,
+    TAIL: 22,
   };
 
-  var totalHeightMainPin = PinSize.MAIN_HEIGHT + PinSize.MAIN_TAIL_HEIGHT;
+  var totalHeightMainPin = MainPinSize.HEIGHT + MainPinSize.TAIL;
 
   /**
    * перемещает Главный пин в стартовое положение
@@ -42,14 +40,14 @@
    * записывает стартовое значение координат Главного пина
    */
   var setStartValueAddress = function () {
-    ADDRESS.value = '' + Math.round(parseInt(MAIN_PIN.style.left, 10) + PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(MAIN_PIN.style.top, 10) + PinSize.MAIN_HEIGHT / 2);
+    ADDRESS.value = '' + Math.round(parseInt(MAIN_PIN.style.left, 10) + MainPinSize.WIDTH / 2) + ', ' + Math.round(parseInt(MAIN_PIN.style.top, 10) + MainPinSize.HEIGHT / 2);
   };
 
   /**
    * записывает текущее значение координат Главного пина
    */
   var setCurrentValueAddress = function () {
-    ADDRESS.value = '' + Math.round(parseInt(MAIN_PIN.style.left, 10) + PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(MAIN_PIN.style.top, 10) + totalHeightMainPin);
+    ADDRESS.value = '' + Math.round(parseInt(MAIN_PIN.style.left, 10) + MainPinSize.WIDTH / 2) + ', ' + Math.round(parseInt(MAIN_PIN.style.top, 10) + totalHeightMainPin);
   };
 
   MAIN_PIN.addEventListener('mousedown', function (evt) {
@@ -76,12 +74,12 @@
       var newX = MAIN_PIN.offsetLeft - shift.x;
       var newY = MAIN_PIN.offsetTop - shift.y;
 
-      if (newX < -PinSize.MAIN_WIDTH / 2) {
-        newX = -PinSize.MAIN_WIDTH / 2;
+      if (newX < -MainPinSize.WIDTH / 2) {
+        newX = -MainPinSize.WIDTH / 2;
       }
 
-      if (newX > MAP.offsetWidth - PinSize.MAIN_WIDTH / 2) {
-        newX = MAP.offsetWidth - PinSize.MAIN_WIDTH / 2;
+      if (newX > MAP.offsetWidth - MainPinSize.WIDTH / 2) {
+        newX = MAP.offsetWidth - MainPinSize.WIDTH / 2;
       }
 
       if (newY < LimitValuePositionPinOnMap.MIN_Y - totalHeightMainPin) {

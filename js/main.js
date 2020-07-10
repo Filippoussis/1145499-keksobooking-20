@@ -4,7 +4,7 @@
 
   window.map.deActivate();
 
-  window.form.setStartValueAddress();
+  window.move.setStartValueAddress();
 
   window.validity.checkRoomsAndGuests();
   window.validity.checkTimeInOut();
