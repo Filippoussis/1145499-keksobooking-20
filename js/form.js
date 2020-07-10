@@ -2,7 +2,7 @@
 
 (function () {
 
-  var mainForm = document.querySelector('.ad-form');
+  var MAIN_FORM = document.querySelector('.ad-form');
 
   /**
    * функция появления и скрытия сообщения об Успехе при отправке формы на сервер
@@ -69,14 +69,14 @@
     });
   };
 
-  var reset = mainForm.querySelector('.ad-form__reset');
+  var reset = MAIN_FORM.querySelector('.ad-form__reset');
   reset.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.map.deActivate();
   });
 
-  mainForm.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(mainForm), function () {
+  MAIN_FORM.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(MAIN_FORM), function () {
       window.map.deActivate();
       showPopupFormOnSuccess();
     }, showPopupFormOnError);
