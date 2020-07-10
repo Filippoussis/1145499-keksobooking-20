@@ -3,23 +3,6 @@
 (function () {
 
   var mainForm = document.querySelector('.ad-form');
-  var mainPin = document.querySelector('.map__pin--main');
-
-  var adFormAddress = mainForm.querySelector('#address');
-
-  /**
-   * записывает стартовое значение координат Главного пина
-   */
-  var setStartValueAddress = function () {
-    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.PinSize.MAIN_HEIGHT / 2);
-  };
-
-  /**
-   * записывает текущее значение координат Главного пина
-   */
-  var setCurrentValueAddress = function () {
-    adFormAddress.value = '' + Math.round(parseInt(mainPin.style.left, 10) + window.data.PinSize.MAIN_WIDTH / 2) + ', ' + Math.round(parseInt(mainPin.style.top, 10) + window.data.totalHeightMainPin);
-  };
 
   /**
    * функция появления и скрытия сообщения об Успехе при отправке формы на сервер
@@ -101,8 +84,6 @@
   });
 
   window.form = {
-    setStartValueAddress: setStartValueAddress,
-    setCurrentValueAddress: setCurrentValueAddress,
     activate: activateForm,
   };
 
