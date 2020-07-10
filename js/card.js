@@ -5,6 +5,13 @@
   var cardTemplate = document.querySelector('#card').content;
   var photoTemplate = cardTemplate.querySelector('.popup__photo');
 
+  var TYPE_HOUSE = {
+    palace: 'Дворец',
+    flat: 'Квартира',
+    house: 'Дом',
+    bungalo: 'Бунгало',
+  };
+
   /**
    * отрисовка фотографий объявления
    * @param {object} ad - объект карточки объявления
@@ -29,7 +36,7 @@
     card.querySelector('.popup__title').textContent = ad.offer.title;
     card.querySelector('.popup__text--address').textContent = ad.offer.address;
     card.querySelector('.popup__text--price').textContent = ad.offer.price + '\u20BD/ночь';
-    card.querySelector('.popup__type').textContent = window.data.TYPES[ad.offer.type];
+    card.querySelector('.popup__type').textContent = TYPE_HOUSE[ad.offer.type];
     card.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
     card.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ',' + ' выезд до ' + ad.offer.checkout;
     card.querySelector('.popup__description').textContent = ad.offer.description;

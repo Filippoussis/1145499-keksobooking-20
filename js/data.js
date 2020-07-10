@@ -25,19 +25,11 @@
     MAX_Y: 630,
   };
 
-  var TYPES = {
-    palace: 'Дворец',
-    flat: 'Квартира',
-    house: 'Дом',
-    bungalo: 'Бунгало',
-  };
-
   window.data = {
     StartPositionMainPin: StartPositionMainPin,
     PinSize: PinSize,
     totalHeightMainPin: totalHeightMainPin,
     LimitValuePositionPinOnMap: LimitValuePositionPinOnMap,
-    TYPES: TYPES,
   };
 
 })();

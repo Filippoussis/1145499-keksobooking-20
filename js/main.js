@@ -6,9 +6,9 @@
 
   window.form.setStartValueAddress();
 
-  window.valid.checkRoomsAndGuests();
-  window.valid.checkTimeInOut();
-  window.valid.checkMinPriceOnTypeHouse();
+  window.validity.checkRoomsAndGuests();
+  window.validity.checkTimeInOut();
+  window.validity.checkMinPriceOnTypeHouse();
 
   var getPins = function () {
     window.backend.load(window.load, window.error);

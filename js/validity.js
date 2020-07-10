@@ -78,7 +78,7 @@
     });
   };
 
-  window.valid = {
+  window.validity = {
     checkRoomsAndGuests: checkRoomsAndGuests,
     checkTimeInOut: checkTimeInOut,
     checkMinPriceOnTypeHouse: checkMinPriceOnTypeHouse,
