@@ -44,9 +44,9 @@
 
     var numberPins = ads.length > MAX_NUMBER_PINS ? MAX_NUMBER_PINS : ads.length;
 
-    for (var i = 0; i < numberPins; i++) {
-      pinFragment.append(renderPin(ads[i]));
-    }
+    ads.slice(0, numberPins).forEach(function (ad) {
+      pinFragment.append(renderPin(ad));
+    });
 
     MAP_PINS.append(pinFragment);
   };
