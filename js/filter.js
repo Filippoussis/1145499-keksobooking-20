@@ -4,6 +4,8 @@
 
   var FILTERS = document.querySelector('.map__filters');
 
+  var ads = [];
+
   var FilterPrice = {
     MIN: 10000,
     MAX: 50000,
@@ -25,8 +27,6 @@
    * фильтрация пинов с последующей отрисовкой на странице пользователя
    */
   var updatePins = function () {
-
-    var ads = window.ads;
 
     var someFilters = ads.filter(function (ad) {
       if (Housing.TYPE.value === 'any') {
@@ -78,5 +78,16 @@
 
     window.pin.render(someFilters);
   };
+
+  /**
+   * полученние данных с сервера
+   * @param {Array} data - данные с сервера
+   */
+  var onSuccess = function (data) {
+    ads = data;
+    window.pin.render(data);
+  };
+
+  window.filter = onSuccess;
 
 })();
