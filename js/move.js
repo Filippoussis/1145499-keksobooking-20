@@ -7,9 +7,8 @@
   var ADDRESS = document.querySelector('#address');
 
   var StartPositionMainPin = {
-    TOP: '50%',
-    LEFT: '50%',
-    TRANSFORM: 'translate(-50%)'
+    TOP: '375px',
+    LEFT: '570px',
   };
 
   var LimitValuePositionPinOnMap = {
@@ -33,7 +32,6 @@
   var setStartPositionMainPin = function () {
     MAIN_PIN.style.top = StartPositionMainPin.TOP;
     MAIN_PIN.style.left = StartPositionMainPin.LEFT;
-    MAIN_PIN.style.transform = StartPositionMainPin.TRANSFORM;
   };
 
   /**
@@ -74,8 +72,8 @@
       var newX = MAIN_PIN.offsetLeft - shift.x;
       var newY = MAIN_PIN.offsetTop - shift.y;
 
-      if (newX < -MainPinSize.WIDTH / 2) {
-        newX = -MainPinSize.WIDTH / 2;
+      if (newX < -(MainPinSize.WIDTH / 2)) {
+        newX = -(MainPinSize.WIDTH / 2);
       }
 
       if (newX > MAP.offsetWidth - MainPinSize.WIDTH / 2) {
