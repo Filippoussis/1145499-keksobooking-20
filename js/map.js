@@ -7,8 +7,6 @@
   var FILTERS = MAP.querySelector('.map__filters');
   var MAIN_FORM = document.querySelector('.ad-form');
 
-  var SRC_AVATAR = 'img/muffin-grey.svg';
-
   /**
    * вызывает функцию активации карты при нажатии клавиши Enter
    * @param {Object} evt - объект хранит последнее событие
@@ -54,15 +52,13 @@
     window.move.setStartValueAddress();
     window.form.activate(MAIN_FORM, false);
     window.form.activate(FILTERS, false);
-    window.validity.resetMinPriceOnTypeHouse();
-    MAIN_FORM.querySelector('.ad-form-header__preview img').src = SRC_AVATAR;
-    MAIN_FORM.querySelector('.ad-form__photo').textContent = '';
+    window.validity.reset();
+    window.photo.reset();
     MAIN_FORM.classList.add('ad-form--disabled');
     MAP.classList.add('map--faded');
     MAIN_PIN.addEventListener('mousedown', onMainPinGeneralButtonPress);
     MAIN_PIN.addEventListener('keydown', onMainPinEnterPress);
   };
-
 
   window.map = {
     deActivate: deActivateMap,

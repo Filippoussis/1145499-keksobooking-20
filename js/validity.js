@@ -93,7 +93,7 @@
     checkRoomsAndGuests: checkRoomsAndGuests,
     checkTimeInOut: checkTimeInOut,
     checkMinPriceOnTypeHouse: checkMinPriceOnTypeHouse,
-    resetMinPriceOnTypeHouse: resetMinPriceOnTypeHouse,
+    reset: resetMinPriceOnTypeHouse,
   };
 
 })();
