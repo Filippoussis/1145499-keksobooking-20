@@ -2,6 +2,8 @@
 
 (function () {
 
+  var FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
   var MAIN_FORM = document.querySelector('.ad-form');
 
   var Avatar = {
@@ -13,8 +15,6 @@
     UPLOAD: MAIN_FORM.querySelector('.ad-form__upload input[name = images]'),
     PHOTO: MAIN_FORM.querySelector('.ad-form__photo'),
   };
-
-  var FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
   var ImageSize = {
     WIDTH: '70px',

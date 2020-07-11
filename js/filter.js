@@ -2,12 +2,12 @@
 
 (function () {
 
+  var FILTERS = document.querySelector('.map__filters');
+
   var FilterPrice = {
     MIN: 10000,
     MAX: 50000,
   };
-
-  var FILTERS = document.querySelector('.map__filters');
 
   var Housing = {
     TYPE: document.querySelector('#housing-type'),

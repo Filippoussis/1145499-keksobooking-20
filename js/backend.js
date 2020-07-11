@@ -2,12 +2,12 @@
 
 (function () {
 
+  var TIMEOUT_IN_MS = 10000;
+
   var Url = {
     LOAD: 'https://javascript.pages.academy/keksobooking/data',
     SAVE: 'https://javascript.pages.academy/keksobooking',
   };
-
-  var TIMEOUT_IN_MS = 10000;
 
   var setXhr = function (xhr, onSuccess, onError) {
     xhr.responseType = 'json';
