@@ -2,6 +2,7 @@
 
 (function () {
 
+  var MAIN = document.querySelector('main');
   var MAIN_FORM = document.querySelector('.ad-form');
 
   /**
@@ -10,8 +11,7 @@
   var showPopupFormOnSuccess = function () {
     var successTemplate = document.querySelector('#success').content;
     var success = successTemplate.cloneNode(true);
-    var main = document.querySelector('main');
-    main.append(success);
+    MAIN.append(success);
 
     var successShow = document.querySelector('.success');
 
@@ -32,8 +32,7 @@
   var showPopupFormOnError = function () {
     var successTemplate = document.querySelector('#error').content;
     var error = successTemplate.cloneNode(true);
-    var main = document.querySelector('main');
-    main.append(error);
+    MAIN.append(error);
 
     var errorShow = document.querySelector('.error');
     var errorButton = errorShow.querySelector('.error__button');
