@@ -32,7 +32,7 @@
     return document.querySelector('.ad-form__photo img');
   };
 
-  var imageReader = function (fileChooser, preview) {
+  var readImage = function (fileChooser, preview) {
     var file = fileChooser.files[0];
     var fileName = file.name.toLowerCase();
 
@@ -57,12 +57,12 @@
   };
 
   Avatar.UPLOAD.addEventListener('change', function () {
-    imageReader(Avatar.UPLOAD, Avatar.PREVIEW);
+    readImage(Avatar.UPLOAD, Avatar.PREVIEW);
   });
 
   House.UPLOAD.addEventListener('change', function () {
     var PREVIEW = createElement(House.PHOTO);
-    imageReader(House.UPLOAD, PREVIEW);
+    readImage(House.UPLOAD, PREVIEW);
   });
 
   window.photo = {
