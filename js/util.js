@@ -30,20 +30,20 @@
 
   /**
    * случайное значение из массива
-   * @param {array} array - исходный массив значений
+   * @param {array} data - исходный массив значений
    * @return {*} случайное значение из массива
    */
-  var getRandomElementFromArray = function (array) {
-    return array[getRandomBetween(0, array.length - 1)];
+  var getRandomElementFromArray = function (data) {
+    return data[getRandomBetween(0, data.length - 1)];
   };
 
   /**
    * массив случайной длины
-   * @param {array} array - исходный массив значений
+   * @param {array} data - исходный массив значений
    * @return {array} массив случайной длины
    */
-  var getRandomArray = function (array) {
-    return array.slice(getRandomBetween(0, array.length - 1));
+  var getRandomArray = function (data) {
+    return data.slice(getRandomBetween(0, data.length - 1));
   };
 
   window.util = {
