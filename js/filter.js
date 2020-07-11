@@ -63,14 +63,14 @@
         return it.value;
       });
 
-      var newArr = checkedValues.filter(function (it) {
+      var matchedFeatures = checkedValues.filter(function (it) {
         return ad.offer.features.includes(it);
       });
 
       if (!checkedValues.length) {
         var features = true;
       } else {
-        features = newArr.length === checkedValues.length;
+        features = matchedFeatures.length === checkedValues.length;
       }
 
       return type && rooms && guests && price && features;
