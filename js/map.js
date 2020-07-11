@@ -54,6 +54,7 @@
     window.move.setStartValueAddress();
     window.form.activate(MAIN_FORM, false);
     window.form.activate(FILTERS, false);
+    window.validity.resetMinPriceOnTypeHouse();
     MAIN_FORM.querySelector('.ad-form-header__preview img').src = SRC_AVATAR;
     MAIN_FORM.querySelector('.ad-form__photo').textContent = '';
     MAIN_FORM.classList.add('ad-form--disabled');

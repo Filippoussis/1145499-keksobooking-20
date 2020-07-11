@@ -82,10 +82,18 @@
     });
   };
 
+  /**
+   * сброс placeholder до дефолтного значения
+   */
+  var resetMinPriceOnTypeHouse = function () {
+    House.PRICE.placeholder = housesAndPrices[House.TYPE.value];
+  };
+
   window.validity = {
     checkRoomsAndGuests: checkRoomsAndGuests,
     checkTimeInOut: checkTimeInOut,
     checkMinPriceOnTypeHouse: checkMinPriceOnTypeHouse,
+    resetMinPriceOnTypeHouse: resetMinPriceOnTypeHouse,
   };
 
 })();
