@@ -2,8 +2,6 @@
 
 (function () {
 
-  var FILE_TYPES = ['jpg', 'jpeg', 'png'];
-
   var MAIN_FORM = document.querySelector('.ad-form');
 
   var Avatar = {
@@ -16,10 +14,17 @@
     PHOTO: MAIN_FORM.querySelector('.ad-form__photo'),
   };
 
+  var FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+  var ImageSize = {
+    WIDTH: '70px',
+    HEIGHT: '70px',
+  };
+
   var createElement = function (node) {
     var image = document.createElement('img');
-    image.style.width = '70px';
-    image.style.height = '70px';
+    image.style.width = ImageSize.WIDTH;
+    image.style.height = ImageSize.HEIGHT;
     node.append(image);
 
     return document.querySelector('.ad-form__photo img');
