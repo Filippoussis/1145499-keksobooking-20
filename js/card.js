@@ -14,16 +14,14 @@
 
   /**
    * отрисовка фотографий объявления
-   * @param {object} ad - объект карточки объявления
-   * @param {number} i - индекс элемента в массиве
+   * @param {string} photo - строковый адрес картинки
    * @return {HTMLElement} возвращает кастомизированный HTMLElement на основе склонированного шаблона
    */
-  var renderPhotos = function (ad, i) {
-    var photo = photoTemplate.cloneNode(true);
+  var renderPhoto = function (photo) {
+    var image = photoTemplate.cloneNode(true);
+    image.src = photo;
 
-    photo.src = ad.offer.photos[i];
-
-    return photo;
+    return image;
   };
 
   /**
@@ -54,9 +52,9 @@
       }
     });
 
-    for (var i = 0; i < ad.offer.photos.length; i++) {
-      card.querySelector('.popup__photos').append(renderPhotos(ad, i));
-    }
+    ad.offer.photos.forEach(function (photo) {
+      card.querySelector('.popup__photos').append(renderPhoto(photo));
+    });
 
     if (!ad.offer.photos.length) {
       card.querySelector('.popup__photos').remove();
