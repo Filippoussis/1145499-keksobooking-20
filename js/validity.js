@@ -4,7 +4,7 @@
 
   var MAIN_FORM = document.querySelector('.ad-form');
 
-  var Number = {
+  var Сount = {
     ROOMS: MAIN_FORM.querySelector('#room_number'),
     GUESTS: MAIN_FORM.querySelector('#capacity'),
   };
@@ -37,24 +37,24 @@
    * валидация формы по полям Количество комнат / Количество гостей
    */
   var checkRoomsAndGuests = function () {
-    Number.ROOMS.addEventListener('change', function () {
-      Number.ROOMS.setCustomValidity('');
-      if (!ROOMS_AND_GUESTS[Number.ROOMS.value].includes(Number.GUESTS.value)) {
-        Number.ROOMS.setCustomValidity('Количество комнат должно быть больше или равно количеству гостей, а 100 комнат - не для гостей');
+    Сount.ROOMS.addEventListener('change', function () {
+      Сount.ROOMS.setCustomValidity('');
+      if (!ROOMS_AND_GUESTS[Сount.ROOMS.value].includes(Сount.GUESTS.value)) {
+        Сount.ROOMS.setCustomValidity('Количество комнат должно быть больше или равно количеству гостей, а 100 комнат - не для гостей');
       } else {
-        Number.GUESTS.setCustomValidity('');
+        Сount.GUESTS.setCustomValidity('');
       }
-      Number.ROOMS.reportValidity();
+      Сount.ROOMS.reportValidity();
     });
 
-    Number.GUESTS.addEventListener('change', function () {
-      Number.GUESTS.setCustomValidity('');
-      if (!ROOMS_AND_GUESTS[Number.ROOMS.value].includes(Number.GUESTS.value)) {
-        Number.GUESTS.setCustomValidity('Количество гостей должно быть меньше или равно количеству комнат, а не гостям - 100 комнат');
+    Сount.GUESTS.addEventListener('change', function () {
+      Сount.GUESTS.setCustomValidity('');
+      if (!ROOMS_AND_GUESTS[Сount.ROOMS.value].includes(Сount.GUESTS.value)) {
+        Сount.GUESTS.setCustomValidity('Количество гостей должно быть меньше или равно количеству комнат, а не гостям - 100 комнат');
       } else {
-        Number.ROOMS.setCustomValidity('');
+        Сount.ROOMS.setCustomValidity('');
       }
-      Number.GUESTS.reportValidity();
+      Сount.GUESTS.reportValidity();
     });
   };
 
