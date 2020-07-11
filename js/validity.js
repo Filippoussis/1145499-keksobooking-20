@@ -4,7 +4,7 @@
 
   var MAIN_FORM = document.querySelector('.ad-form');
 
-  var Сount = {
+  var Count = {
     ROOMS: MAIN_FORM.querySelector('#room_number'),
     GUESTS: MAIN_FORM.querySelector('#capacity'),
   };
@@ -37,24 +37,24 @@
    * валидация формы по полям Количество комнат / Количество гостей
    */
   var checkRoomsAndGuests = function () {
-    Сount.ROOMS.addEventListener('change', function () {
-      Сount.ROOMS.setCustomValidity('');
-      if (!roomsAndGuests[Сount.ROOMS.value].includes(Сount.GUESTS.value)) {
-        Сount.ROOMS.setCustomValidity('Количество комнат должно быть больше или равно количеству гостей, а 100 комнат - не для гостей');
+    Count.ROOMS.addEventListener('change', function () {
+      Count.ROOMS.setCustomValidity('');
+      if (!roomsAndGuests[Count.ROOMS.value].includes(Count.GUESTS.value)) {
+        Count.ROOMS.setCustomValidity('Количество комнат должно быть больше или равно количеству гостей, а 100 комнат - не для гостей');
       } else {
-        Сount.GUESTS.setCustomValidity('');
+        Count.GUESTS.setCustomValidity('');
       }
-      Сount.ROOMS.reportValidity();
+      Count.ROOMS.reportValidity();
     });
 
-    Сount.GUESTS.addEventListener('change', function () {
-      Сount.GUESTS.setCustomValidity('');
-      if (!roomsAndGuests[Сount.ROOMS.value].includes(Сount.GUESTS.value)) {
-        Сount.GUESTS.setCustomValidity('Количество гостей должно быть меньше или равно количеству комнат, а не гостям - 100 комнат');
+    Count.GUESTS.addEventListener('change', function () {
+      Count.GUESTS.setCustomValidity('');
+      if (!roomsAndGuests[Count.ROOMS.value].includes(Count.GUESTS.value)) {
+        Count.GUESTS.setCustomValidity('Количество гостей должно быть меньше или равно количеству комнат, а не гостям - 100 комнат');
       } else {
-        Сount.ROOMS.setCustomValidity('');
+        Count.ROOMS.setCustomValidity('');
       }
-      Сount.GUESTS.reportValidity();
+      Count.GUESTS.reportValidity();
     });
   };
 
