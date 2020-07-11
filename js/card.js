@@ -52,12 +52,14 @@
       }
     });
 
+    var popupPhotos = card.querySelector('.popup__photos');
+
     ad.offer.photos.forEach(function (photo) {
-      card.querySelector('.popup__photos').append(renderPhoto(photo));
+      popupPhotos.append(renderPhoto(photo));
     });
 
     if (!ad.offer.photos.length) {
-      card.querySelector('.popup__photos').remove();
+      popupPhotos.remove();
     } else {
       card.querySelector('.popup__photo').remove();
     }
@@ -69,8 +71,9 @@
    * удаление со страницы открытой карточки объявления
    */
   var clearCard = function () {
-    if (document.querySelector('.map__card')) {
-      document.querySelector('.map__card').remove();
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
     }
   };
 
