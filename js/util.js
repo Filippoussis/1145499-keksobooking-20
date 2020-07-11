@@ -20,12 +20,12 @@
    * @return {array} массив последовательных натуральных чисел
    */
   var getArrayNaturalNumbers = function (start, end) {
-    var arr = [];
+    var naturalNumbers = [];
     for (var i = start; i <= end; i++) {
-      arr.push(i);
+      naturalNumbers.push(i);
     }
 
-    return arr;
+    return naturalNumbers;
   };
 
   /**
