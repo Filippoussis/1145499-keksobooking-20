@@ -52,8 +52,8 @@
   };
 
   var resetImage = function () {
-    MAIN_FORM.querySelector('.ad-form-header__preview img').src = SRC_AVATAR;
-    MAIN_FORM.querySelector('.ad-form__photo').textContent = '';
+    Avatar.PREVIEW.src = SRC_AVATAR;
+    House.PHOTO.textContent = '';
   };
 
   Avatar.UPLOAD.addEventListener('change', function () {
