@@ -2,8 +2,8 @@
 
 (function () {
 
-  var cardTemplate = document.querySelector('#card').content;
-  var photoTemplate = cardTemplate.querySelector('.popup__photo');
+  var CARD_TEMPLATE = document.querySelector('#card').content;
+  var PHOTO_TEMPLATE = CARD_TEMPLATE.querySelector('.popup__photo');
 
   var TYPE_HOUSE = {
     palace: 'Дворец',
@@ -18,7 +18,7 @@
    * @return {HTMLElement} возвращает кастомизированный HTMLElement на основе склонированного шаблона
    */
   var renderPhoto = function (photo) {
-    var image = photoTemplate.cloneNode(true);
+    var image = PHOTO_TEMPLATE.cloneNode(true);
     image.src = photo;
 
     return image;
@@ -30,7 +30,7 @@
    * @return {HTMLElement} возвращает кастомизированный HTMLElement на основе склонированного шаблона
    */
   var renderCard = function (ad) {
-    var card = cardTemplate.cloneNode(true);
+    var card = CARD_TEMPLATE.cloneNode(true);
     card.querySelector('.popup__title').textContent = ad.offer.title;
     card.querySelector('.popup__text--address').textContent = ad.offer.address;
     card.querySelector('.popup__text--price').textContent = ad.offer.price + '\u20BD/ночь';
