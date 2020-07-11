@@ -19,11 +19,13 @@
    */
   var renderPin = function (ad) {
     var pin = PIN_TEMPLATE.cloneNode(true);
-    pin.querySelector('.map__pin').style.left = ad.location.x - SimilarPinSize.WIDTH / 2 + 'px';
-    pin.querySelector('.map__pin').style.top = ad.location.y - SimilarPinSize.HEIGHT + 'px';
-    pin.querySelector('.map__pin img').src = ad.author.avatar;
-    pin.querySelector('.map__pin img').alt = ad.offer.title;
-    pin.querySelector('.map__pin').addEventListener('click', function (evt) {
+    var mapPin = pin.querySelector('.map__pin');
+    var mapPinImg = pin.querySelector('.map__pin img');
+    mapPin.style.left = ad.location.x - SimilarPinSize.WIDTH / 2 + 'px';
+    mapPin.style.top = ad.location.y - SimilarPinSize.HEIGHT + 'px';
+    mapPinImg.src = ad.author.avatar;
+    mapPinImg.alt = ad.offer.title;
+    mapPin.addEventListener('click', function (evt) {
       evt.preventDefault();
       window.popup.open(ad);
     });
@@ -55,8 +57,9 @@
    * удаление со страницы пинов за исключением главного
    */
   var clearPins = function () {
-    if (document.querySelectorAll('.map__pin:not(.map__pin--main)')) {
-      document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (pin) {
+    var notMainPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    if (notMainPins) {
+      notMainPins.forEach(function (pin) {
         pin.remove();
       });
     }
