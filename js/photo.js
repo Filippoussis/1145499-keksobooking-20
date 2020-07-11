@@ -13,7 +13,16 @@
 
   var House = {
     UPLOAD: MAIN_FORM.querySelector('.ad-form__upload input[name = images]'),
-    PREVIEW: MAIN_FORM.querySelector('.ad-form__photo img'),
+    PHOTO: MAIN_FORM.querySelector('.ad-form__photo'),
+  };
+
+  var createElement = function (node) {
+    var image = document.createElement('img');
+    image.style.width = '70px';
+    image.style.height = '70px';
+    node.append(image);
+
+    return document.querySelector('.ad-form__photo img');
   };
 
   var imageReader = function (fileChooser, preview) {
@@ -40,7 +49,8 @@
   });
 
   House.UPLOAD.addEventListener('change', function () {
-    imageReader(House.UPLOAD, House.PREVIEW);
+    var PREVIEW = createElement(House.PHOTO);
+    imageReader(House.UPLOAD, PREVIEW);
   });
 
 })();
